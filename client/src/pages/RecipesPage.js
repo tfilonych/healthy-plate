@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React from 'react';
 
 const RecipesPage = () => {
   const recipes =
@@ -12,11 +12,14 @@ const RecipesPage = () => {
 
   return (
     <div className="recipes">
-      {items.map((i) => {
+      {items.map((i, index) => {
         return (
-          <div className="recipe">
+          <div className="recipe" key={index}>
             {/*<div className="img" />*/}
-            <img src="https://i0.wp.com/demo.wpzoom.com/gourmand/files/2019/04/gourmand14.jpg?resize=380%2C520&ssl=1" />
+            <img
+              src="https://i0.wp.com/demo.wpzoom.com/gourmand/files/2019/04/gourmand14.jpg?resize=380%2C520&ssl=1"
+              alt='recipe'
+            />
             <div className="txt-container">
               <div className="title">{i.title}</div>
               <div className="description">{i.description}</div>

@@ -3,6 +3,7 @@
   src: url("/../fonts/Inter-Medium.ttf"), url("/../fonts/Inter-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal; }
+
 * {
   font-family: 'Inter', sans-serif;
   color: #424242;
@@ -16,6 +17,7 @@ html {
 @media screen and (max-width: 600px) {
   html {
     font-size: 10px; } }
+
 img {
   max-width: 100%;
   height: auto;
@@ -90,8 +92,5 @@ select:-webkit-autofill:focus {
 @media screen and (max-width: 600px) {
   .logo {
     display: none; }
-
   .logo-sm {
     display: flex; } }
-
-/*# sourceMappingURL=navigation.css.map */
