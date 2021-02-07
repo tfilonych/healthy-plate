@@ -1,0 +1,55 @@
+@import "variables.scss";
+
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: $max-width;
+  margin: 0 auto;
+
+  .recipe {
+    flex: 1 0 30%;
+    margin: 0.36rem;
+    border-radius: $border-radius;
+
+    .txt-container {
+      padding: 0.7rem 0;
+
+      & > div {
+        margin-top: 0.7rem;
+      }
+
+      .title {
+        font-size: 1.7rem;
+      }
+      .description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        white-space: normal;
+        overflow: hidden;
+      }
+      .more-btn {
+        @extend %button;
+        background: $primary-color-dark;
+        color: $primary-color-light;
+
+        &:hover {
+          background: $hover-dark;
+        }
+      }
+
+    }
+
+  }
+
+  &:after {
+    content: "";
+    flex: auto;
+  }
+}
+
+//.img {
+//  //background: url("https://i0.wp.com/demo.wpzoom.com/gourmand/files/2019/04/gourmand14.jpg?resize=380%2C520&ssl=1") 100% 100% no-repeat;
+//  background: url("https://i0.wp.com/demo.wpzoom.com/gourmand/files/2018/10/calum-lewis-390170-unsplash-1.jpg?resize=760%2C1040&ssl=1") 100% 100% no-repeat;
+//  background-size: cover;
+//}

@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'inter';
+  src: url("/../fonts/Inter-Medium.ttf"), url("/../fonts/Inter-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+* {
+  font-family: 'Inter', sans-serif;
+  color: #424242;
+  /*font-size: 14px;*/
+  margin: 0; }
+
+html {
+  font-size: 14px;
+  background: #f3f5f5; }
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 10px; } }
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.28rem; }
+
+.hp-content {
+  margin: 0 2rem; }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s; }

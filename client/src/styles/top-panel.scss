@@ -1,0 +1,27 @@
+@import "variables.scss";
+
+.top-panel {
+  background: $primary-color-dark;
+  height: 4.3rem;
+  display: flex;
+  justify-content: flex-end;
+
+  .login-btn {
+    @extend %button;
+    background: $primary-color-light;
+    color: black;
+    margin: 1.07rem;
+    align-self: center;
+
+    a {
+      color: $primary-color-dark;
+      text-decoration: none;
+      background: transparent;
+    }
+
+    &:hover a {
+      color: $brand-color;
+      /*background: gainsboro;*/
+    }
+  }
+}

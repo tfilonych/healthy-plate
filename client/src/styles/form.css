@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'inter';
+  src: url("/../fonts/Inter-Medium.ttf"), url("/../fonts/Inter-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+* {
+  font-family: 'Inter', sans-serif;
+  color: #424242;
+  /*font-size: 14px;*/
+  margin: 0; }
+
+html {
+  font-size: 14px;
+  background: #f3f5f5; }
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 10px; } }
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.28rem; }
+
+.hp-content {
+  margin: 0 2rem; }
+
+.form-container .button {
+  cursor: pointer;
+  font-size: 1.2rem;
+  border-radius: 0.28rem;
+  padding: 0.7rem 1.07rem;
+  width: 7rem;
+  text-align: center; }
+  @media screen and (max-width: 600px) {
+    .form-container .button {
+      padding: 0.5rem 0.8rem;
+      width: 4.5rem; } }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s; }
+
+.form-container {
+  display: flex;
+  padding: 1.43rem 3.57rem;
+  width: 35.7rem;
+  height: auto;
+  flex-direction: column;
+  margin: 3.57rem auto;
+  align-items: center;
+  border-radius: 0.28rem;
+  border: 1px solid #e0e0e0;
+  font-size: 1.7rem; }
+  @media screen and (max-width: 600px) {
+    .form-container {
+      width: 80%;
+      max-width: 30rem;
+      padding: 0.5rem 1.5rem;
+      border: none; } }
+  .form-container .login, .form-container .password {
+    border: 1px solid #e0e0e0;
+    width: 35.7rem;
+    padding: 0.71rem;
+    border-radius: 0.28rem;
+    margin-top: 1.43rem; }
+    @media screen and (max-width: 600px) {
+      .form-container .login, .form-container .password {
+        width: 100%; } }
+  .form-container input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1.2rem;
+    background: transparent; }
+    .form-container input::placeholder {
+      background: transparent; }
+    .form-container input:-webkit-autofill {
+      background: transparent; }
+  .form-container .buttons {
+    display: flex;
+    align-self: flex-start;
+    margin-left: -0.71rem; }
+  .form-container .button {
+    margin-right: 0.71rem;
+    margin-top: 1.43rem;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    background: black;
+    color: white; }
+  .form-container .button:hover {
+    background: #555; }
+
+/*# sourceMappingURL=form.css.map */
