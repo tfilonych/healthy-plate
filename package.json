@@ -10,10 +10,7 @@
     "client:install": "npm install --prefix client",
     "client:build": "npm run build --prefix client",
     "lint": "eslint . --prefix client",
-    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\" \"npm run lint\""
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",

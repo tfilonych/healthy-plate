@@ -14,19 +14,18 @@ $border-radius: 0.28rem;
 $max-width: 85.7rem;
 $hover-dark: #555;
 
-@font-face {
-  font-family: 'inter';
-  src:  url('/../fonts/Inter-Medium.ttf'),
-  url('/../fonts/Inter-Medium.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+//@font-face {
+//  font-family: "inter";
+//  src: url("/client/src/styles/fonts/Inter-Medium.ttf"),
+//    url("/client/src/styles/fonts/Inter-Medium.ttf") format("truetype");
+//  font-weight: normal;
+//  font-style: normal;
+//}
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: #424242;
   /*font-size: 14px;*/
   margin: 0;
-
 }
 
 html {
@@ -74,4 +73,3 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
   transition: background-color 5000s ease-in-out 0s;
 }
-

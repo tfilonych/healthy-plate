@@ -1,6 +1,6 @@
 {
-  "port": 3003,
+  "port": 3000,
   "mongoUri": "mongodb+srv://tivato:123456kycja@mern.ni19m.mongodb.net/app?retryWrites=true&w=majority",
   "jwtSecret": "Some secret code",
-  "baseUrl": "http://localhost:3002"
+  "baseUrl": "http://localhost:3000"
 }

@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-export const Logo = () => (
+const Logo = () => (
   <>
     <div className="logo">
       <span>Healthy</span>
@@ -12,3 +12,5 @@ export const Logo = () => (
     </div>
   </>
 );
+
+export default Logo;

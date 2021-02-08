@@ -1,5 +1,3 @@
-@import "variables.scss";
-
 .header {
   @media screen and (max-width: 600px) {
     background: black;
@@ -8,7 +6,7 @@
     flex-direction: column;
     align-items: center;
     max-height: 6rem;
-    transition: max-height .5s ease;
+    transition: max-height 0.5s ease;
     margin-bottom: 2rem;
     overflow: hidden;
 
@@ -16,7 +14,6 @@
       background: white;
       margin: 1rem auto;
     }
-
 
     .nav {
       flex-direction: column;
@@ -33,7 +30,7 @@
         left: 0;
       }
 
-      a{
+      a {
         color: white;
         line-height: 2.5rem;
         padding: 0;
@@ -51,7 +48,6 @@
       order: 3;
     }
 
-
     .nav-icon {
       margin: 1em;
       width: 1.5rem;
@@ -66,20 +62,20 @@
     .nav-icon div {
       background-color: #fff;
       border-radius: 3px;
-      content: '';
+      content: "";
       display: block;
-      height: .2rem;
-      margin: .4rem 0;
-      transition: all .3s ease-in-out;
+      height: 0.2rem;
+      margin: 0.4rem 0;
+      transition: all 0.3s ease-in-out;
     }
 
     &.open {
       .nav-icon:before {
-        transform: translateY(.6rem) rotate(135deg);
+        transform: translateY(0.6rem) rotate(135deg);
       }
 
       .nav-icon:after {
-        transform: translateY(-.6rem) rotate(-135deg);
+        transform: translateY(-0.6rem) rotate(-135deg);
       }
 
       .nav-icon div {
@@ -87,7 +83,7 @@
       }
 
       max-height: 80rem;
-      transition: max-height .5s ease;
+      transition: max-height 0.5s ease;
       //.top-panel {
       //  height: 0;
       //  transition: height 2s ease;
@@ -96,7 +92,6 @@
       //  height: 0;
       //  transition: height 2s ease;
       //}
-
     }
 
     &:before {
@@ -108,9 +103,4 @@
       left: 0;
     }
   }
-
-
-
-
-
 }

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import {TopPanel} from './TopPanel';
-import {Navbar} from './Navbar2';
-import {Logo} from './Logo';
+import TopPanel from './TopPanel';
+import Logo from './Logo';
+import Navbar from './Navbar';
 
-export const Header = () => {
-  const [open, toggleClass] = useState(false)
+const Header = () => {
+  const [open, toggleClass] = useState(false);
 
   const toggleMenu = () => {
     toggleClass((prev) => !prev);
-  }
+  };
   return (
-    <div className={`header ${open ? 'open' : ''}`}>
+    <div className={`header ${open ? "open" : ""}`}>
       <div className={`nav-icon`} onClick={toggleMenu}>
         <div></div>
       </div>
@@ -20,3 +20,5 @@ export const Header = () => {
     </div>
   );
 };
+
+export default Header;

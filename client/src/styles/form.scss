@@ -1,5 +1,3 @@
-@import "variables.scss";
-
 .form-container {
   display: flex;
   padding: 1.43rem 3.57rem;
@@ -23,7 +21,8 @@
   //  align-self: center;
   //}
 
-  .login, .password {
+  .login,
+  .password {
     border: 1px solid #e0e0e0;
     width: 35.7rem;
     padding: 0.71rem;
@@ -33,7 +32,6 @@
     @media screen and (max-width: 600px) {
       width: 100%;
     }
-
   }
 
   input {
