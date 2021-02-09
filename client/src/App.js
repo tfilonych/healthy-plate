@@ -1,8 +1,8 @@
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import useRoutes from "./routes";
-import useAuth from "./hooks/auth.hook";
-import AuthContext from "./context/AuthContext";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import useRoutes from './routes';
+import useAuth from './hooks/auth.hook';
+import AuthContext from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
