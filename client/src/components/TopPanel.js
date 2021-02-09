@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const TopPanel = () => (
+const TopPanel = ( {auth: {token, logout}} ) => (
   <div className="top-panel">
-    <div className="login-btn">
+    {!token ? <div className="login-btn">
       <Link to="/login">Sign In</Link>
-    </div>
+    </div> : <div className="login-btn" onClick={logout}>Sign Out</div>
+    }
   </div>
 );
 

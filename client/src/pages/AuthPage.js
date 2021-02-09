@@ -1,15 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
+import AuthContext from '../context/AuthContext';
 
 const AuthPage = () => {
-  const { error, clearError } = useHttp();
+  const { error, request, clearError } = useHttp();
   const message = useMessage();
+  const auth = useContext(AuthContext);
+
+  const [form, setForm] = useState({
+    email: '',
+    password: ''
+  });
+
 
   useEffect(() => {
     message(error);
     clearError();
   }, [error, message, clearError]);
+
+  const loginHandler = async () => {
+    console.log(form);
+    try {
+      const data = await request('/api/auth/login', 'POST', { ...form });
+      console.log(data);
+      auth.login(data.token, data.userId);
+    } catch (e) {}
+  }
+  const registerHandler = async () => {
+    try {
+      const data = await request('/api/auth/register', 'POST', { ...form });
+      console.log(data);
+    } catch (e) {}
+  }
+  const changeHandler = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    console.log('set form')
+  };
 
   return (
     <div className="form-container">
@@ -17,12 +44,12 @@ const AuthPage = () => {
       <div className="login">
         <input
           placeholder="Enter login"
-          id="login"
+          id="email"
           type="text"
-          name="login"
+          name="email"
           className="validate"
           // autoComplete="off"
-          // onChange={changeHandler}
+          onChange={changeHandler}
         />
       </div>
       <div className="password">
@@ -31,7 +58,7 @@ const AuthPage = () => {
           id="password"
           type="text"
           name="password"
-          // onChange={changeHandler}
+          onChange={changeHandler}
           className="validate"
         />
       </div>
@@ -39,11 +66,14 @@ const AuthPage = () => {
         <div
           className="button sign-in"
           // style={{marginRight: 10}}
-          // onClick={loginHandler}
+          onClick={loginHandler}
         >
           Sign In
         </div>
-        <div className="button">Sign Up</div>
+        <div
+          className="button"
+          onClick={registerHandler}
+        >Sign Up</div>
       </div>
     </div>
   );

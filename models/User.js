@@ -10,9 +10,9 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    links: [{
+    recipes: [{
         type: Types.ObjectId,
-        ref: 'Link'
+        ref: 'Recipe'
     }]
 });
 

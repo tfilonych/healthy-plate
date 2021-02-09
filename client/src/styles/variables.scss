@@ -54,8 +54,8 @@ img {
   text-align: center;
 
   @media screen and (max-width: 600px) {
-    padding: 0.5rem 0.8rem;
-    width: 4.5rem;
+    padding: 0.8rem 0.8rem;
+    min-width: 4.5rem;
   }
 }
 
