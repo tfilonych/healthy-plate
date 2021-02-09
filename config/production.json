@@ -2,5 +2,5 @@
   "port": 8080,
   "mongoUri": "mongodb+srv://tivato:123456kycja@hp.ooefn.mongodb.net/hp?retryWrites=true&w=majority",
   "jwtSecret": "Some secret code",
-  "baseUrl": "https://healthy-plate.herokuapp.com",
+  "baseUrl": "https://healthy-plate.herokuapp.com"
 }
