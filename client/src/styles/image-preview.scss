@@ -1,0 +1,70 @@
+.image-container {
+  position: relative;
+  input {
+    display: none;
+  }
+  .add-img-btn {
+    @extend %button;
+    position: absolute;
+    color: $primary-color-light;
+    right: 0;
+    margin: .5rem;
+    background: $primary-color-dark;
+
+    &:hover {
+      background: $hover-dark;
+    }
+  }
+}
+.preview-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+
+  img {
+    aspect-ratio: 3/2;
+    object-fit: cover;
+  }
+
+  input {
+    display: none;
+  }
+
+  .preview-remove {
+    cursor: pointer;
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    color: $primary-color-light;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    background: rgba(0, 0, 0, .3);
+    opacity: 0;
+    transition: opacity .3s ease;
+
+  }
+  .preview-info {
+    background: rgba(0, 0, 0, .3);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: .7rem 0;
+    opacity: 0;
+
+    span {
+      color: $primary-color-light;
+      padding: 0 .5rem;
+    }
+  }
+
+  &:hover {
+    .preview-remove, .preview-info {
+      opacity: 1;
+      transition: opacity .3s ease;
+    }
+  }
+}

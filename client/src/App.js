@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import useRoutes from './routes';
-import useAuth from './hooks/auth.hook';
 import AuthContext from './context/AuthContext';
+import useAuth from './hooks/auth.hook';
+import useToken from './hooks/token.hook';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 const App = () => {
-  const { token, login, logout, userId } = useAuth();
-  const isAuthenticated = !!token;
-  console.log("isAuthenticated ", isAuthenticated);
+  const { login, logout, isAuthenticated } = useAuth();
+  const { token } = useToken();
+  console.log('isAuthenticated ', isAuthenticated);
   const routes = useRoutes(isAuthenticated);
 
   return (
@@ -18,7 +19,6 @@ const App = () => {
         token,
         login,
         logout,
-        userId,
         isAuthenticated,
       }}
     >

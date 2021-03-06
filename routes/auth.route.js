@@ -77,9 +77,6 @@ router.post(
             const { email, password } = req.body;
             const user = await User.findOne({ email });
 
-            console.log('yey')
-          console.log(user)
-
             if (!user) {
                 return res.status(400).json({message: 'User is not created yet'});
             }
@@ -89,17 +86,57 @@ router.post(
                 return res.status(400).json({ message: 'Incorrect password' });
             }
 
-            const token = jwt.sign(
+            const accessToken = jwt.sign(
                 { userId: user.id },
                 config.get('jwtSecret'),
-                { expiresIn: '1h' }
+                { expiresIn: '20m' }
+            );
+            const refreshToken = jwt.sign(
+              { userId: user.id },
+              config.get('refreshTokenSecret'),
             );
 
-            res.json({ token, userId: user.id });
+          user.refreshTokens.push(refreshToken);
+          user.save();
 
+          res.json({
+              accessToken,
+              refreshToken
+          });
         } catch (e) {
             res.status(500).json({message: 'Something went wrong'})
         }
     });
+
+router.post('/token', (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(token.refreshToken, config.get('refreshTokenSecret'), async (err, user) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+    const currentUser = await User.findById({_id: user.userId});
+    if (!currentUser.refreshTokens.includes(token.refreshToken)) {
+      return res.sendStatus(403);
+    }
+
+    const accessToken = jwt.sign(
+      { userId: user.id },
+      config.get('jwtSecret'),
+      { expiresIn: '20m' }
+    );
+
+
+    res.json(
+      {
+        accessToken,
+        refreshToken: token.refreshToken
+    });
+  });
+});
 
 module.exports = router;

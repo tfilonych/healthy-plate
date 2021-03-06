@@ -1,41 +1,50 @@
-import { useState, useCallback, useEffect } from "react";
-
-const storageName = "userData";
+import { useState, useCallback, useEffect } from 'react';
+import { storageName } from '../../config/config';
+import useToken from './token.hook';
+import useStorage from './storage.hook';
 
 const useAuth = () => {
-  const [token, setToken] = useState(null);
+  const { updateStorage, clearStorage } = useStorage(storageName);
+  const {
+    token,
+    isTokenExpired,
+    getUpdatedToken
+  } = useToken();
   const [ready, setReady] = useState(false);
-  const [userId, setUserId] = useState(null);
+  const [isAuthenticated, setAuthStatus] = useState(false);
 
-  const login = useCallback((jwtToken, id) => {
-    setToken(jwtToken);
-    setUserId(id);
-
-    localStorage.setItem(
-      storageName,
-      JSON.stringify({
-        userId: id,
-        token: jwtToken,
-      })
-    );
+  const login = useCallback((newToken=null) => {
+    if (newToken && newToken.accessToken) {
+      updateStorage(newToken);
+    }
+    setAuthStatus(true);
   }, []);
 
   const logout = useCallback(() => {
-    setToken(null);
-    setUserId(null);
-    localStorage.removeItem(storageName);
+    setAuthStatus(false);
+    clearStorage();
   }, []);
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(storageName));
+  const checkAuth = async () => {
+    if (token && token.accessToken) {
+      const isTokenExp = await isTokenExpired();
 
-    if (data && data.token) {
-      login(data.token, data.userId);
+      if (isTokenExp) {
+        const updatedToken = await getUpdatedToken(token);
+
+        return updatedToken && updatedToken.accessToken && login(updatedToken);
+      }
+      login();
     }
-    setReady(true);
+  }
+
+  useEffect(() => {
+    checkAuth();
+
+    return () => setReady(true);
   }, [login]);
 
-  return { login, logout, token, userId, ready };
+  return { login, logout, isAuthenticated, ready };
 };
 
 export default useAuth;

@@ -1,35 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useHttp } from '../hooks/http.hook';
+import CardListPlaceholder from '../components/placeholders/CardListPlaceholder';
+import RecipeList from '../components/RecipeList';
 
 const RecipesPage = () => {
-  const recipes = {
-    title: "Some title",
-    description:
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-       sed do eiusmod tempor incididunt ut labore et dolore magna 
-       aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-       ullamco laboris nisi ut aliquip ex ea commodo consequat.`
-  };
-  const items = [...Array(10)].map((_, i) => recipes);
+  const [recipes, setRecipes] = useState([]);
+  const { request, loading } = useHttp();
+
+  const fetch = async () => {
+    try {
+      const recipes = await request('/api/recipe/all', 'GET');
+
+      setRecipes(recipes);
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+  useEffect(() => {
+    fetch();
+  }, [])
 
   return (
-    <div className="recipes">
-      {items.map((i, index) => {
-        return (
-          <div className="recipe" key={index}>
-            {/*<div className="img" />*/}
-            <img
-              src="https://i0.wp.com/demo.wpzoom.com/gourmand/files/2019/04/gourmand14.jpg?resize=380%2C520&ssl=1"
-              alt="recipe"
-            />
-            <div className="txt-container">
-              <div className="title">{i.title}</div>
-              <div className="description">{i.description}</div>
-              <div className="more-btn">More</div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div className="recipes-top-panel">
+        <div className="filters">Filters will be placed here</div>
+        <Link className="add-recipe-btn" to="/create-recipe">Add Recipe</Link>
+      </div>
+      <div className="recipes">
+        {loading && <CardListPlaceholder />}
+        <RecipeList recipes={recipes} />
+      </div>
+    </>
   );
 };
 

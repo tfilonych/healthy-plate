@@ -12,6 +12,7 @@ module.exports = merge(common, {
 
   // Spin up a server for quick development
   devServer: {
+    // index: '',
     historyApiFallback: true,
     contentBase: paths.build,
     open: false,
@@ -19,8 +20,30 @@ module.exports = merge(common, {
     hot: true,
     port: 3000,
     proxy: {
-      '/api/': 'http://localhost:5000',
+      '/api/': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      },
+      '/images/': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      },
+      '/recipes/images/': {
+        target: 'http://localhost:5000',
+        pathRewrite: { '/recipes/images/': '/images/' },
+        changeOrigin: true
+      },
     },
+    // proxy: [
+    //   {
+    //     context: ['**/images/', '/api/'],
+    //     target: 'http://localhost:5000',
+    //   },
+    // ],
+    // proxy: {
+    //   '/': 'http://localhost:5000',
+    //   '/images/': 'http://localhost:5000',
+    // },
   },
 
   module: {

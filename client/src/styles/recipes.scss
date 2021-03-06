@@ -1,23 +1,88 @@
-.recipes {
+.recipes-top-panel {
   display: flex;
+  padding: 2rem 0;
+  justify-content: space-between;
+  align-items: center;
+
+  .filters {
+    color: $primary-color-dark;
+    font-size: 1.2rem;
+  }
+
+  .add-recipe-btn {
+    @extend %button;
+    width: auto;
+    background: $primary-color-dark;
+    color: $primary-color-light;
+
+    &:hover {
+      background: $hover-dark;
+    }
+  }
+}
+
+.recipes {
+  display: inline-flex;
   flex-wrap: wrap;
-  max-width: $max-width;
-  margin: 0 auto;
+  max-width: 85.7rem;
 
   .recipe {
-    flex: 1 0 30%;
-    margin: 0.36rem;
+    width: calc((100% / 3) - (2rem / 3)); // one-third - two margins divided equally among 3 items
+    margin-right: 1rem;
+    margin-bottom: 1rem;
     border-radius: $border-radius;
 
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+
+    @media screen and (max-width: 780px) {
+      width: calc((100% / 2) - (1rem / 2));
+
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+      &:nth-child(3n) {
+        margin-right: 1rem;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      width: 100%;
+      margin-right: 0;
+    }
+
+    .image-container {
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        padding-bottom: 66.66%;
+        position: relative;
+      }
+    }
+
+
     .txt-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       padding: 0.7rem 0;
+      height: 11rem;
 
       & > div {
         margin-top: 0.7rem;
       }
 
       .title {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
       }
       .description {
         display: -webkit-box;
@@ -25,11 +90,13 @@
         -webkit-line-clamp: 2;
         white-space: normal;
         overflow: hidden;
+        margin-top: auto;
       }
       .more-btn {
         @extend %button;
         background: $primary-color-dark;
         color: $primary-color-light;
+        margin-top: .7rem;
 
         &:hover {
           background: $hover-dark;
@@ -43,9 +110,3 @@
     flex: auto;
   }
 }
-
-//.img {
-//  //background: url("https://i0.wp.com/demo.wpzoom.com/gourmand/files/2019/04/gourmand14.jpg?resize=380%2C520&ssl=1") 100% 100% no-repeat;
-//  background: url("https://i0.wp.com/demo.wpzoom.com/gourmand/files/2018/10/calum-lewis-390170-unsplash-1.jpg?resize=760%2C1040&ssl=1") 100% 100% no-repeat;
-//  background-size: cover;
-//}

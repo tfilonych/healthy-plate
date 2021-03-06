@@ -42,8 +42,17 @@ img {
   height: auto;
   border-radius: $border-radius;
 }
+a {
+  text-decoration: none;
+  background: transparent;
+}
 .hp-content {
   margin: 0 2rem;
+  max-width: $max-width;
+
+  @media screen and (min-width: 1201px) {
+    margin: 0 auto;
+  }
 }
 %button {
   cursor: pointer;
@@ -72,4 +81,37 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: black;
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+%sign {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background: linear-gradient(#000, #000), linear-gradient(#000, #000), transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+%plus {
+  @extend %sign;
+  background-size: 100% 2px,2px 100%;
+}
+%minus {
+  @extend %sign;
+  background-size: 100% 2px,2px 0;
+}
+
+input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1.2rem;
+  background: transparent;
+
+  &::placeholder {
+    background: transparent;
+  }
+
+  &:-webkit-autofill {
+    background: transparent;
+  }
 }

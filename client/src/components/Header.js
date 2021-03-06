@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import TopPanel from './TopPanel';
 import Logo from './Logo';
 import Navbar from './Navbar';
@@ -6,17 +7,27 @@ import AuthContext from '../context/AuthContext';
 
 const Header = () => {
   const [open, toggleClass] = useState(false);
-  const auth = useContext(AuthContext);
+  const [transition, addTransition] = useState(false);
+  const {isAuthenticated, logout} = useContext(AuthContext);
+  const history = useHistory()
 
-  const toggleMenu = () => {
+  useEffect(() => {
+    history && history.listen((location) => {
+      console.log(`You changed the page to: ${location.pathname}`);
+      toggleMenu(false);
+    })
+  },[history])
+
+  const toggleMenu = (val) => {
+    addTransition(val);
     toggleClass((prev) => !prev);
   };
   return (
-    <div className={`header ${open ? "open" : ""}`}>
-      <div className={`nav-icon`} onClick={toggleMenu}>
+    <div className={`header ${open ? "open" : "" } ${transition ? "transition" : "" }`}>
+      <div className={`nav-icon`} onClick={() => toggleMenu(true)}>
         <div></div>
       </div>
-      <TopPanel auth={auth} />
+      <TopPanel isAuthenticated={isAuthenticated} logout={logout} />
       <Logo />
       <Navbar />
     </div>

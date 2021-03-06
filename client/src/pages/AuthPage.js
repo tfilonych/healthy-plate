@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
-import AuthContext from '../context/AuthContext';
 
 const AuthPage = () => {
+  const history = useHistory();
   const { error, request, clearError } = useHttp();
   const message = useMessage();
   const auth = useContext(AuthContext);
@@ -20,22 +22,25 @@ const AuthPage = () => {
   }, [error, message, clearError]);
 
   const loginHandler = async () => {
-    console.log(form);
     try {
-      const data = await request('/api/auth/login', 'POST', { ...form });
-      console.log(data);
-      auth.login(data.token, data.userId);
-    } catch (e) {}
+      const data = await request('/api/auth/login', 'POST', {...form});
+
+      auth.login(data);
+      history.push('/recipes')
+    } catch (e) {
+      console.log(e);
+    }
   }
   const registerHandler = async () => {
     try {
       const data = await request('/api/auth/register', 'POST', { ...form });
-      console.log(data);
+
+      auth.login(data);
+      history.push('/recipes')
     } catch (e) {}
   }
   const changeHandler = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    console.log('set form')
   };
 
   return (
@@ -48,7 +53,6 @@ const AuthPage = () => {
           type="text"
           name="email"
           className="validate"
-          // autoComplete="off"
           onChange={changeHandler}
         />
       </div>
@@ -65,7 +69,6 @@ const AuthPage = () => {
       <div className="buttons">
         <div
           className="button sign-in"
-          // style={{marginRight: 10}}
           onClick={loginHandler}
         >
           Sign In

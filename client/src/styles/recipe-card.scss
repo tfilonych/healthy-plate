@@ -1,0 +1,192 @@
+.recipe-card {
+
+  &.new {
+    .recipe-info {
+      align-items: flex-start;
+
+      .image-container {
+        margin-right: 2rem;
+
+        @media screen and (max-width: 600px) {
+          order: 1;
+          width: 100%;
+        }
+      }
+      .recipe-title {
+        order: 2;
+        margin: 2rem 0;
+      }
+    }
+  }
+}
+
+.page-title {
+  text-align: right;
+  font-size: 1.8rem;
+  padding: 1rem;
+}
+.recipe-info {
+  display: flex;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-container {
+    background-color: $secondary-color;
+    background: url(https://image.freepik.com/free-photo/empty-dark-matte-dish-dinner-white-wooden-background_79075-1957.jpg) center center no-repeat;
+    background-size: cover;
+    width: 430px;
+    height: 287px;
+    border-radius: $border-radius;
+
+    @media screen and (max-width: 600px) {
+      order: 2;
+      width: 100%;
+    }
+  }
+  .recipe-title {
+    font-size: 1.5rem;
+    margin: 2rem;
+    flex: 1;
+
+    @media screen and (max-width: 600px) {
+      order: 1;
+    }
+
+    .title {
+      font-weight: 600;
+    }
+
+    input {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+      margin-right: 2rem;
+      margin-top: 1.5rem;
+      padding: .5rem;
+    }
+  }
+}
+
+.procedures {
+  font-size: 1.5rem;
+
+  .title {
+    font-weight: 600;
+  }
+  .item {
+    padding: 1rem 0;
+    font-size: 1.2rem;
+  }
+
+  textarea {
+    min-height: 5rem;
+    display: block;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.26);
+    outline: 0;
+    width: 100%;
+    padding: .5rem;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: 1.2rem;
+    margin: 1.5rem 0;
+  }
+  .add-new-btn {
+    @extend %button;
+    color: $primary-color-light;
+    background: $primary-color-dark;
+    width: 100%;
+
+    &:hover {
+      background: $hover-dark;
+    }
+  }
+}
+.desc-container {
+  display: flex;
+  flex-direction: column;
+
+  .ingredients {
+    font-size: 1.5rem;
+    margin: 2rem 0;
+
+    .ingredients-title {
+      font-weight: 600;
+    }
+
+    .item {
+      display: flex;
+      width: 40rem;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .ingredient-input {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: 1.2rem;
+      line-height: 2rem;
+      width: 40rem;
+      padding: .5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+
+    }
+    .ingredient-list {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+
+      .ingredient {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        font-size: 1.2rem;
+        line-height: 2rem;
+        width: 50%;
+
+        @media screen and (max-width: 600px) {
+          width: 100%;
+        }
+
+        .minus {
+          @extend %minus;
+          cursor: pointer;
+        }
+
+        &.tick {
+          &:before {
+            content: "";
+            border: 1px solid $secondary-color;
+            border-radius: 50%;
+            width: .5rem;
+            height: .5rem;
+          }
+        }
+      }
+
+    }
+    .add-new-btn {
+      @extend %button;
+      color: $primary-color-light;
+      background: $primary-color-dark;
+
+      &:hover {
+        background: $hover-dark;
+      }
+    }
+  }
+}
+
+.recipe-save-btn {
+  @extend %button;
+  color: $primary-color-light;
+  background: $primary-color-dark;
+  margin-top: 2rem;
+
+  &:hover {
+    background: $hover-dark;
+  }
+}

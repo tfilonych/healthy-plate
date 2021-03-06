@@ -2,13 +2,21 @@ const express = require('express');
 const config = require('config');
 const path = require('path');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(express.json({ extended: true }));
+app.use(morgan('dev', {
+    skip: function (req, res) { return res.statusCode < 400 }
+}))
+app.use('/images', express.static('images'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/api/auth', require('./routes/auth.route'));
 app.use('/api/link', require('./routes/link.route'));
+app.use('/api/recipe', require('./routes/recipe.route'));
 app.use('/t', require('./routes/redirect.route'));
 
 if (process.env.NODE_ENV === 'production') {

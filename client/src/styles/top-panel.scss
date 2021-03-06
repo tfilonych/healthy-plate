@@ -7,19 +7,12 @@
   .login-btn {
     @extend %button;
     background: $primary-color-light;
-    color: black;
-    margin: 1.07rem;
+    margin: 2rem;
     align-self: center;
+    color: $primary-color-dark;
 
-    a {
-      color: $primary-color-dark;
-      text-decoration: none;
-      background: transparent;
-    }
-
-    &:hover a {
+    &:hover {
       color: $brand-color;
-      /*background: gainsboro;*/
     }
   }
 }

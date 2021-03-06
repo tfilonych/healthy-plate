@@ -13,6 +13,9 @@ const schema = new Schema({
     recipes: [{
         type: Types.ObjectId,
         ref: 'Recipe'
+    }],
+    refreshTokens: [{
+        type: String
     }]
 });
 
