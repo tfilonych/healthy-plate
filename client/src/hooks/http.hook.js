@@ -7,12 +7,15 @@ export const useHttp = () => {
   const request = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
       setLoading(true);
+      console.log(body)
 
       try {
         if (body) {
           if (body.file) {
-            body = new FormData();
-            Object.keys(body).forEach(key => body.append(key, body[key]));
+            const formData = new FormData();
+
+            Object.keys(body).forEach(key => formData.append(key, body[key]));
+            body = formData;
           } else {
             body = JSON.stringify(body);
             headers["Content-Type"] = "application/json";

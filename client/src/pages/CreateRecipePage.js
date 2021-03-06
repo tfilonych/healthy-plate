@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import AuthContext from '../context/AuthContext';
 import Ingredients from '../components/recipeCard/Ingredients';
@@ -6,6 +7,7 @@ import Procedures from '../components/recipeCard/Procedures';
 import ImageLoad from '../components/recipeCard/ImageLoad';
 
 const CreateRecipePage = () => {
+  const history = useHistory();
   const { request } = useHttp();
   const { token } = useContext(AuthContext);
   const [form, setForm] = useState({

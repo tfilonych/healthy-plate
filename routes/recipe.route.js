@@ -31,7 +31,7 @@ const upload = multer({
 
 router.post(
 '/save',
-  upload.single('image'),
+  upload.single('file'),
   auth,
   async (req, res) => {
   try {
@@ -55,7 +55,7 @@ router.post(
 
     res.status(201).json({ recipe });
   } catch (e) {
-    res.status(500).json({ message: 'Something went wrong. Please, try again' });
+    res.status(500).json({ message: e.message });
   }
 })
 
