@@ -16,7 +16,6 @@ jobs:
          - npm install
          - npm run client: install
          - npm run client: build
-         - git push -f https://github.com/tfilonych/healthy-plate/tree/main
          - npm run start
         
       - name: Deploy 🚀
