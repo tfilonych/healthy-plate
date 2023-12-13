@@ -7,23 +7,21 @@ on:
   workflow_dispatch:
 
   jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-        script:
-           - npm install
-           - npm run client: install
-           - npm run client: build
-           - git push -f https://github.com/tfilonych/healthy-plate/tree/main
-           - npm run start
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+      script:
+         - npm install
+         - npm run client: install
+         - npm run client: build
+         - git push -f https://github.com/tfilonych/healthy-plate/tree/main
+         - npm run start
 
-     - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build
+   - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: build
       
         
 
