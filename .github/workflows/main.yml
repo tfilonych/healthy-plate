@@ -15,5 +15,5 @@ jobs:
     - name: Install and Build 
       working-directory: ./server
       run: |
-        npm install
-    
+         - npm install
+         - npm run client: install
