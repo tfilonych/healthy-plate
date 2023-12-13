@@ -1,11 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export const useHttp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const request = useCallback(
-    async (url, method = "GET", body = null, headers = {}) => {
+  const request = async (url, method = "GET", body = null, headers = {}) => {
       setLoading(true);
       console.log(body)
 
@@ -26,22 +25,18 @@ export const useHttp = () => {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Something went wrong");
+          throw new Error(data.message);
         }
-
-        setLoading(false);
-
+        alert('after throw')
         return data;
       } catch (e) {
-        setLoading(false);
         setError(e.message);
-        throw e;
+      } finally {
+        setLoading(false);
       }
-    },
-    []
-  );
+    };
 
-  const clearError = useCallback(() => setError(null), []);
+  const clearError = () => setError(null);
 
   return {
     loading,

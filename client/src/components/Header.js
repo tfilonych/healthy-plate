@@ -1,35 +1,32 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import TopPanel from './TopPanel';
 import Logo from './Logo';
 import Navbar from './Navbar';
-import AuthContext from '../context/AuthContext';
 
 const Header = () => {
-  const [open, toggleClass] = useState(false);
-  const [transition, addTransition] = useState(false);
-  const {isAuthenticated, logout} = useContext(AuthContext);
-  const history = useHistory()
+    const { isAuthenticated, logout } = useContext(AuthContext);
+    const headerRef = useRef(null);
+    const location = useLocation();
 
-  useEffect(() => {
-    history && history.listen((location) => {
-      console.log(`You changed the page to: ${location.pathname}`);
-      toggleMenu(false);
-    })
-  },[history])
+    useEffect(() => {
+        console.log(`You changed the page to: ${location.pathname}`);
+        if (headerRef.current.contains(document.activeElement)) {
+            document.activeElement.blur()
+        }
+    }, [location]);
 
-  const toggleMenu = (val) => {
-    addTransition(val);
-    toggleClass((prev) => !prev);
-  };
   return (
-    <div className={`header ${open ? "open" : "" } ${transition ? "transition" : "" }`}>
-      <div className={`nav-icon`} onClick={() => toggleMenu(true)}>
-        <div></div>
-      </div>
-      <TopPanel isAuthenticated={isAuthenticated} logout={logout} />
-      <Logo />
-      <Navbar />
+    <div className="header" tabIndex="0" ref={headerRef}>
+        <TopPanel isAuthenticated={isAuthenticated} logout={logout} />
+        <Logo />
+        <div className="navigation">
+            <div className="nav-icon" tabIndex="0">
+                <div></div>
+            </div>
+            <Navbar />
+        </div>
     </div>
   );
 };

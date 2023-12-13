@@ -22,33 +22,37 @@
 }
 
 .recipes {
-  display: inline-flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+  //flex-wrap: wrap;
   max-width: 85.7rem;
 
   .recipe {
-    width: calc((100% / 3) - (2rem / 3)); // one-third - two margins divided equally among 3 items
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    //width: calc((100% / 3) - (6rem / 3) - 2px); // one-third - two margins divided equally among 3 items
+    //margin-right: 3rem;
+    //margin-bottom: 1rem;
     border-radius: $border-radius;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &:nth-child(3n) {
-      margin-right: 0;
+      //margin-right: 0;
     }
 
-    @media screen and (max-width: 780px) {
-      width: calc((100% / 2) - (1rem / 2));
+    &:hover {
+      box-shadow: 0 3px 10px #aca294;
+      grid-area: unset;
+      //transform: scale(1.1);
+      transition: all ease .3s;
+      //transform: scale(1.1);
 
-      &:nth-child(2n) {
-        margin-right: 0;
+      .txt-container {
+        //transition: all ease .3s;
+        //padding: 0 1rem;
       }
-      &:nth-child(3n) {
-        margin-right: 1rem;
-      }
-    }
-    @media screen and (max-width: 600px) {
-      width: 100%;
-      margin-right: 0;
     }
 
     .image-container {
@@ -57,8 +61,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
-        width: 100%;
+        height: auto;
+        width: 300px;
+        aspect-ratio: 3 / 2;
       }
 
       &:before {
@@ -75,14 +80,11 @@
       flex-direction: column;
       justify-content: space-between;
       padding: 0.7rem 0;
-      height: 11rem;
-
-      & > div {
-        margin-top: 0.7rem;
-      }
+      //height: 11rem;
 
       .title {
-        font-size: 1.5rem;
+        font-size: 1rem;
+        text-wrap: balance;
       }
       .description {
         display: -webkit-box;
@@ -103,7 +105,25 @@
         }
       }
     }
+
+
   }
+  @media screen and (max-width: 780px) {
+    grid-template-columns: repeat(2, 1fr);
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+    &:nth-child(3n) {
+      margin-right: 1rem;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin-right: 0;
+  }
+
 
   &:after {
     content: "";

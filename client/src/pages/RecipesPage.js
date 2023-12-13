@@ -1,26 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useHttp } from '../hooks/http.hook';
-import CardListPlaceholder from '../components/placeholders/CardListPlaceholder';
+import React, { Suspense } from 'react';
+import { Await, defer, Link, useLoaderData } from 'react-router-dom';
 import RecipeList from '../components/RecipeList';
 
 const RecipesPage = () => {
-  const [recipes, setRecipes] = useState([]);
-  const { request, loading } = useHttp();
-
-  const fetch = async () => {
-    try {
-      const recipes = await request('/api/recipe/all', 'GET');
-
-      setRecipes(recipes);
-    } catch (e) {
-      console.log(e);
-    }
-
-  }
-  useEffect(() => {
-    fetch();
-  }, [])
+  const { recipes } = useLoaderData()
 
   return (
     <>
@@ -29,11 +12,25 @@ const RecipesPage = () => {
         <Link className="add-recipe-btn" to="/create-recipe">Add Recipe</Link>
       </div>
       <div className="recipes">
-        {loading && <CardListPlaceholder />}
-        <RecipeList recipes={recipes} />
+        <Suspense fallback={<h1>Loading ...</h1>}>
+          <Await resolve={recipes}>
+            {(resolvedRecipes) => <RecipeList recipes={resolvedRecipes} />}
+          </Await>
+        </Suspense>
       </div>
     </>
   );
 };
 
-export default RecipesPage;
+const getRecipes = async() => {
+  const response = await fetch('/api/recipe/all');
+  return await response.json();
+}
+
+const recipesLoader = async() => {
+  return defer({
+    recipes: getRecipes()
+  })
+}
+
+export { RecipesPage, recipesLoader }

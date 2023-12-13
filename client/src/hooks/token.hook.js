@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { storageName } from '../../config/config';
 import { useHttp } from './http.hook';
-import useStorage from './storage.hook';
+import useStorage from './storage';
 
 const useToken = () => {
   const { storageVal } = useStorage(storageName);
@@ -25,7 +25,15 @@ const useToken = () => {
 
   const getUpdatedToken =  async (token) => {
     try {
-      return  await request('/api/auth/token', 'POST', {token});
+      return await request('/api/auth/token', 'POST', {token});
+    } catch (e) {
+      console.warn(e.message);
+    }
+  }
+
+  const removeToken = async () => {
+    try {
+      return await request('/api/auth/logout', 'POST');
     } catch (e) {
       console.warn(e.message);
     }
@@ -38,7 +46,8 @@ const useToken = () => {
   return {
     token,
     isTokenExpired,
-    getUpdatedToken
+    getUpdatedToken,
+    removeToken
   }
 }
 

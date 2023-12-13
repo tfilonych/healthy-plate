@@ -10,9 +10,16 @@
     margin: 2rem;
     align-self: center;
     color: $primary-color-dark;
+    transition: all .5s ease;
 
     &:hover {
       color: $brand-color;
+      transition: all .5s ease;
+    }
+
+    &:active {
+      transform: scale(.9);
+      transition: all .5s ease;
     }
   }
 }

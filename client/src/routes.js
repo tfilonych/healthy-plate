@@ -1,10 +1,13 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import AuthPage from './pages/AuthPage';
+import { Route, createBrowserRouter, createRoutesFromElements, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import RecipesPage from './pages/RecipesPage';
+import { RecipesPage, recipesLoader } from './pages/RecipesPage';
 import CreateRecipePage from './pages/CreateRecipePage';
-import RecipePage from './pages/RecipePage';
+import { RecipePage, recipeLoader } from './pages/RecipePage';
+import AboutPage from './pages/AboutPage';
+import Layout from './pages/Layout';
+import SignUpPage from './pages/SignUpPage';
 
 const useRoutes = (isAuthenticated) => {
   // console.log(isAuthenticated)
@@ -24,27 +27,23 @@ const useRoutes = (isAuthenticated) => {
   //         </Switch>
   //     )
   // }
+    const router = createBrowserRouter(createRoutesFromElements(
+        <Route path="/" element={<Layout />} >
+            <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="login" element={<LoginPage />}  />
+            <Route path="sign-up" element={<SignUpPage />} />
+            <Route path="recipes" loader={recipesLoader} element={<RecipesPage />} />
+            <Route path="recipes/:id" loader={recipeLoader} element={<RecipePage />} />
+            <Route path="create-recipe" element={<CreateRecipePage />} />
+            <Route
+                path="*"
+                element={<Navigate to="/" replace />}
+            />
+        </Route>
+    ));
 
-  return (
-    <Switch>
-      <Route path="/recipes/:id" exact>
-        <RecipePage />
-      </Route>
-      <Route path="/recipes" exact>
-        <RecipesPage />
-      </Route>
-      <Route path="/create-recipe">
-        <CreateRecipePage />
-      </Route>
-      <Route path="/login">
-        <AuthPage />
-      </Route>
-      <Route path="/" exact>
-        <HomePage />
-      </Route>
-      <Redirect to="/" />
-    </Switch>
-  );
+    return router;
 };
 
 export default useRoutes;

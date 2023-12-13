@@ -1,33 +1,35 @@
 import { useState, useCallback, useEffect } from 'react';
 import { storageName } from '../../config/config';
 import useToken from './token.hook';
-import useStorage from './storage.hook';
+import useStorage from './storage';
 
 const useAuth = () => {
   const { updateStorage, clearStorage } = useStorage(storageName);
   const {
     token,
     isTokenExpired,
-    getUpdatedToken
+    getUpdatedToken,
+    removeToken
   } = useToken();
   const [ready, setReady] = useState(false);
   const [isAuthenticated, setAuthStatus] = useState(false);
 
-  const login = useCallback((newToken=null) => {
+  const login = (newToken=null) => {
     if (newToken && newToken.accessToken) {
       updateStorage(newToken);
     }
     setAuthStatus(true);
-  }, []);
+  }
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async() => {
     setAuthStatus(false);
     clearStorage();
+    await removeToken()
   }, []);
 
   const checkAuth = async () => {
     if (token && token.accessToken) {
-      const isTokenExp = await isTokenExpired();
+      const isTokenExp = isTokenExpired();
 
       if (isTokenExp) {
         const updatedToken = await getUpdatedToken(token);

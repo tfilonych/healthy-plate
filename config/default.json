@@ -1,7 +1,0 @@
-{
-  "port": 5000,
-  "mongoUri": "mongodb+srv://tivato:123456kycja@hp.ooefn.mongodb.net/hp?retryWrites=true&w=majority",
-  "jwtSecret": "Some secret code",
-  "refreshTokenSecret": "Refresh Token Secret",
-  "baseUrl": "http://localhost:5000"
-}

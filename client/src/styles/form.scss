@@ -10,6 +10,11 @@
   border: 1px solid $secondary-color;
   font-size: 1.7rem;
 
+
+  .error {
+    @extend %error;
+  }
+
   @media screen and (max-width: 600px) {
     width: 80%;
     max-width: 30rem;
@@ -19,34 +24,78 @@
 
   .login,
   .password {
-    border: 1px solid $secondary-color;
-    width: 35.7rem;
-    padding: 0.71rem;
-    border-radius: $border-radius;
     margin-top: 1.43rem;
+    width: 35.7rem;
+    border-radius: 0.28rem;
+    border: 1px solid #e0e0e0;
+
+    input {
+      padding: 0.71rem;
+    }
 
     @media screen and (max-width: 600px) {
       width: 100%;
     }
   }
 
-  .buttons {
+  .button-container {
     display: flex;
-    align-self: flex-start;
-    margin-left: -0.71rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 1.43rem;
+    width: 100%;
 
     .button {
       @extend %button;
       margin-right: 0.71rem;
-      margin-top: 1.43rem;
       border: 1px solid $secondary-color;
       cursor: pointer;
       font-size: 1.2rem;
       background: $primary-color-dark;
       color: $primary-color-light;
     }
-    .button:hover {
+    .button:hover, [disabled] {
       background: $hover-dark;
     }
+  }
+}
+form:invalid .sign-in {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.error-container {
+  display: none;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: $border-radius;
+  background: #FCE4EC;
+
+  &.server-error {
+    margin-bottom: 1rem;
+  }
+
+  .error {
+    display: block;
+  }
+}
+
+form > div > input:invalid:not(:focus):not(:placeholder-shown) ~ .error-container, .error-container.server-error
+{
+  display: block;
+}
+.auth-container-btn {
+  display: flex;
+}
+.sign-up-link {
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+
+  a {
+    color: $brand-color;
+    text-decoration: underline;
+    margin: 0 .5rem;
   }
 }

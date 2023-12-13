@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common.js')
 const paths = require('./paths')
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 module.exports = merge(common, {
   // Set the mode to development or production
@@ -14,15 +15,27 @@ module.exports = merge(common, {
   devServer: {
     // index: '',
     historyApiFallback: true,
-    contentBase: paths.build,
+    //contentBase: paths.build,
     open: false,
     compress: true,
     hot: true,
     port: 3000,
+    // proxy: {
+    //   '/api': {
+    //     agent: new HttpsProxyAgent('http://proxy.company.co.uk:3128'),
+    //     target: 'https://env-01.dev.company.co.uk/v4/',
+    //     pathRewrite: { '^/api': '' },
+    //     changeOrigin: true,
+    //   },
     proxy: {
-      '/api/': {
+      '/api': {
+        //target: 'http://localhost:5000',
+        //changeOrigin: true,
+        // agent: new HttpsProxyAgent('http://proxy.company.co.uk:3128'),
         target: 'http://localhost:5000',
-        changeOrigin: true
+        secure: false,
+        //pathRewrite: { '^/api': '' },
+        changeOrigin: true,
       },
       '/images/': {
         target: 'http://localhost:5000',

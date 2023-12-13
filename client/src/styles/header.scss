@@ -1,12 +1,11 @@
 .header {
   @media screen and (max-width: 600px) {
     background: $primary-color-dark;
-    height: 100%;
+    height: 60px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
+    justify-content: center;
     align-items: center;
-    max-height: 6rem;
-    //transition: max-height 0.5s ease;
     transition: none;
     margin-bottom: 2rem;
     overflow: hidden;
@@ -16,78 +15,10 @@
       margin: 1rem auto;
     }
 
-    .nav {
-      flex-direction: column;
-      order: 2;
-      height: auto;
-
-      &:before {
-        content: "";
-        display: block;
-        border: 1px solid $primary-color-light;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      a {
-        color: $primary-color-light;
-        line-height: 2.5rem;
-        padding: 0;
-
-        &:hover {
-          color: $brand-color;
-        }
-      }
-
-      &:before {
-        display: none;
-      }
-    }
     .top-panel {
-      order: 3;
-    }
-
-    .nav-icon {
-      margin: 1em;
-      width: 1.5rem;
-      cursor: pointer;
-      position: absolute;
       top: 1rem;
-      left: 1rem;
-    }
-
-    .nav-icon:after,
-    .nav-icon:before,
-    .nav-icon div {
-      background-color: $primary-color-light;
-      border-radius: $border-radius;
-      content: "";
-      display: block;
-      height: 0.2rem;
-      margin: 0.4rem 0;
-      transition: all 0.3s ease-in-out;
-    }
-
-    &.open {
-      .nav-icon:before {
-        transform: translateY(0.6rem) rotate(135deg);
-      }
-
-      .nav-icon:after {
-        transform: translateY(-0.6rem) rotate(-135deg);
-      }
-
-      .nav-icon div {
-        transform: scale(0);
-      }
-
-      max-height: 80rem;
-    }
-
-    &.transition {
-      transition: max-height 0.5s ease;;
+      right: 1rem;
+      position: absolute;
     }
 
     &:before {
@@ -99,4 +30,48 @@
       left: 0;
     }
   }
+
+  // will be moved
+  .logo,
+  .logo-sm {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+    padding: 1.4rem;
+    text-transform: capitalize;
+    position: relative;
+    font-family: fantasy;
+    border-radius: 50%;
+    border: 0.07rem solid;
+    width: fit-content;
+    margin: 2.1rem auto;
+    pointer-events: auto;
+
+    span {
+      &:first-child {
+        text-decoration: none;
+        color: $brand-color;
+        font-family: cursive;
+      }
+      &:last-child {
+        font-family: fantasy;
+        font-weight: 900;
+      }
+    }
+  }
+  .logo-sm {
+    display: none;
+    padding: 8px;
+  }
+  @media screen and (max-width: 600px) {
+    .logo {
+      display: none;
+    }
+
+    .logo-sm {
+      display: flex;
+    }
+  }
+  // end
+
 }

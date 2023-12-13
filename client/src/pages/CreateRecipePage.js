@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import AuthContext from '../context/AuthContext';
 import Ingredients from '../components/recipeCard/Ingredients';
@@ -7,7 +7,7 @@ import Procedures from '../components/recipeCard/Procedures';
 import ImageLoad from '../components/recipeCard/ImageLoad';
 
 const CreateRecipePage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { request } = useHttp();
   const { token } = useContext(AuthContext);
   const [form, setForm] = useState({
@@ -34,7 +34,8 @@ const CreateRecipePage = () => {
       const data = await request('/api/recipe/save', 'POST', { ...form },{
         Authorization: `Bearer ${token.accessToken}`,
       });
-      history.push(data.recipe._id);
+      navigate('/recipes')
+      redirect(data.recipe._id);
     } catch (e) {
       console.log(e)
     }

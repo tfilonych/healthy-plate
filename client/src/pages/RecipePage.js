@@ -1,56 +1,59 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
-import { useHttp } from '../hooks/http.hook';
-import CardPlaceholder from '../components/placeholders/CardPlaceholder';
+import React, { Suspense } from 'react';
+import { defer, useLoaderData, Await } from 'react-router-dom';
 
 const RecipePage = () => {
-  const { id } = useParams();
-  const { request } = useHttp();
-  const {isAuthenticated} = useContext(AuthContext);
-  const [recipe, setRecipe] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const recipe = await request(`/api/recipe/${id}`, 'GET');
-
-      setRecipe(recipe);
-    };
-
-    fetchData();
-  }, [isAuthenticated]);
-
+  const { recipe } = useLoaderData();
   return (
-    <>
-    {recipe ? <div className="recipe-card new">
-      <div className="recipe-info">
-        <div className="image-container">
-          {recipe.image && <img src={recipe.image} />}
-        </div>
-        <div className="recipe-title">{recipe.title}</div>
-      </div>
-      <div className="desc-container">
-        <div className="ingredients">
-          <div className="ingredients-title">Ingredients:</div>
-          {recipe && recipe.ingredients.length > 0 && <div className="ingredient-list">
-            {recipe.ingredients.map((item, i) => (
-              <div className="ingredient tick" key={i}>
-                <div>{item}</div>
+    <Suspense fallback="<h1>Loading...</h1>>">
+      <Await resolve={recipe}>
+        {(resolvedRecipe) => {
+          return (
+            <div className="recipe-card new">
+              <div className="recipe-info">
+                <div className="image-container">
+                  {resolvedRecipe.image && <img src={resolvedRecipe.image} />}
+                </div>
+                <div className="recipe-title">{resolvedRecipe.title}</div>
               </div>
-            ))}
-          </div>}
-        </div>
-        <div className="procedures">
-          <div className="title">Procedures:</div>
-          <div className="item">
-            {recipe.procedures}
-          </div>
-        </div>
-      </div>
-      </div> : <CardPlaceholder /> }
-      </>
-
+              <div className="desc-container">
+                <div className="ingredients">
+                  <div className="ingredients-title">Ingredients:</div>
+                  {resolvedRecipe.ingredients && <div className="ingredient-list">
+                    {resolvedRecipe.ingredients.map((item, i) => (
+                      <div className="ingredient tick" key={i}>
+                        <div>{item}</div>
+                      </div>
+                    ))}
+                  </div>}
+                </div>
+                <div className="procedures">
+                  <div className="title">Procedures:</div>
+                  <div className="item">
+                    {resolvedRecipe.procedures}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        }}
+      </Await>
+    </Suspense>
   );
 };
 
-export default RecipePage;
+const getRecipe = async(id) => {
+  try {
+    const response = await fetch(`/api/recipe/${id}`);
+    return await response.json();
+  } catch (e) {
+    return e.message;
+  }
+}
+
+const recipeLoader = async ({ params }) => {
+  return defer({
+    recipe: getRecipe(params.id)
+  })
+}
+
+export { RecipePage, recipeLoader };
