@@ -6,7 +6,6 @@ export const useHttp = () => {
 
   const request = async (url, method = "GET", body = null, headers = {}) => {
       setLoading(true);
-      console.log(body)
 
       try {
         if (body) {
@@ -27,7 +26,6 @@ export const useHttp = () => {
         if (!response.ok) {
           throw new Error(data.message);
         }
-        alert('after throw')
         return data;
       } catch (e) {
         setError(e.message);
