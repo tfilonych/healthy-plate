@@ -2,25 +2,27 @@ name: Healthy-Plate
 # This workflow represents a set of basic End-to-End tests
 on:
   push:
-    branches: ['main']
-  workflow_dispatch:
+    branches: [ master ]
 
-  jobs:
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
-      script:
+jobs:
+ build-and-deploy:
+  runs-on: ubuntu-latest
+  steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+    
+      - name: Install and Build 
+        run: |
          - npm install
          - npm run client: install
          - npm run client: build
          - git push -f https://github.com/tfilonych/healthy-plate/tree/main
          - npm run start
-
-   - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: build
+        
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
       
         
 
