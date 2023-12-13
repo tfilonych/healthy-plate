@@ -8,16 +8,12 @@ jobs:
  build-and-deploy:
   runs-on: ubuntu-latest
   steps:
-      - uses: actions/setup-node@v2
-        with:
-          node-version-file: client/package-lock.json
-          cache: "npm"
-          cache-dependency-path: client/package-lock.json
       - name: Checkout 🛎️
         uses: actions/checkout@v3
     
       - name: Install and Build 
         run: |
+         uses: 'node20'
          - npm install
          - npm run client: install
          - npm run client: build
