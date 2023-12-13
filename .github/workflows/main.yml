@@ -1,0 +1,25 @@
+name: Healthy-Plate
+# This workflow represents a set of basic End-to-End tests
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+        script:
+           - npm install
+           - npm run client:install
+           - npm run client:build
+           - git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main:master
+           - npm run start
+      
+        
+
+ 
