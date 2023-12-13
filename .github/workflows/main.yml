@@ -2,14 +2,13 @@ name: Healthy-Plate
 # This workflow represents a set of basic End-to-End tests
 on:
   push:
-    branches:
-      - 'main'
+    branches: ['main']
   workflow_dispatch:
 
   jobs:
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
       
       script:
          - npm install
