@@ -16,4 +16,4 @@ jobs:
       working-directory: ./server
       run: |
          - npm install
-         - npm run client: install
+         - npm run client:install
