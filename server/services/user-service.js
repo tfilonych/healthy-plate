@@ -3,12 +3,13 @@ const uuid = require('uuid')
 const config = require('config')
 const UserModel = require('./../models/User')
 const UserDto = require('../dtos/user-dto')
-//const mailService = require('../services/mail-service')
+// const mailService = require('../services/mail-service')
 const tokenService = require('../services/token-service')
 
 class UserService {
-  async registration (email, password) {
-    const candidate = await UserModel.findOne({ email })
+  async registration (userData) {
+    const { email, password } = userData;
+    const candidate = await UserModel.findOne({email})
 
     if (candidate) {
       throw new Error(`User with email ${email} has already exist`)
@@ -17,7 +18,7 @@ class UserService {
     const activationLink = uuid.v4()
     const user = new UserModel({ email, password: hashedPassword, activationLink })
 
-    //await mailService.sendActivationMail(email, `${config.get('apiURL')}/api/auth/activate/${activationLink}`);
+    // await mailService.sendActivationMail(email, `${config.get('apiURL')}/api/auth/activate/${activationLink}`);
     const userDto = new UserDto(user)
     const tokens = tokenService.generateTokens({ ...userDto })
 

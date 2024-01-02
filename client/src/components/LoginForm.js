@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, forwardRef } from 'react';
 import { Link } from 'react-router-dom';
-import SubmitButton from './SubmitButton';
+//import SubmitButton from './SubmitButton';
 
 const LoginForm = ({ loginHandler, error=null }, formRef) => {
     const emailRef = useRef(null);
@@ -35,20 +35,20 @@ const LoginForm = ({ loginHandler, error=null }, formRef) => {
                     minLength="6"
                 />
                 <div className="error-container">
-                    <span className="error">Please enter a valid password</span>
+                    <span className="error">Password should have at least 8 characters</span>
                 </div>
             </div>
             <div className="button-container">
                 {error && <div className="error-container server-error">
                     <div className="error">{error}</div>
                 </div>}
-                <div className="auth-container-btn">
-                    <SubmitButton />
-                    <div className="sign-up-link">
-                        <span>New user?</span>
-                        <Link to="/sign-up">Sign Up here</Link>
-                    </div>
-
+                <button
+                    role="submit"
+                    className="button sign-in"
+                >Sign-In</button>
+                <div className="sign-up-link">
+                    <span>New user?</span>
+                    <Link to="/sign-up">Sign Up here</Link>
                 </div>
             </div>
         </form>

@@ -217,12 +217,13 @@ const RecipeList = ({ recipes=[] }) => {
 
   return (
     <>
-      {hardcodedArr.map((recipe, index) => {
+      {recipes.map((recipe, index) => {
           return (
             <Link className="recipe flip-container" key={recipe._id} to={`/recipes/${recipe._id}`}>
                 <div className="txt-container">
                   <div className="title">{recipe.title}</div>
-                  <div className="cook-item"></div>
+                  &#9918;
+                  <div className="cook-item">15m</div>
                 </div>
                 <div className="image-container">
                   <img

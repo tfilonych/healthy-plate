@@ -2,19 +2,22 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./client/build",
   "dependencies": {
     "@types/jest": "^29.2.0",
     "fetch-intercept": "^2.4.0",
     "https-proxy-agent": "^7.0.2",
-    "react": "0.0.0-experimental-b36ae8d7a-20231207",
-    "react-dom": "0.0.0-experimental-b36ae8d7a-20231207",
-    "react-router-dom": "^6.19.0"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^6.19.0",
+    "react-simple-wysiwyg": "^3.0.2",
+    "react-use-websocket": "^4.5.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
-    "lint": "eslint . src config || true",
-    "test": "jest --coverage"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

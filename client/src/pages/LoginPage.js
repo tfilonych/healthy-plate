@@ -1,14 +1,14 @@
-import React, { useContext, useRef } from 'react';
+import React, {useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
+// import AuthContext from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
 import LoginForm from '../components/LoginForm';
 
 const LoginPage = () => {
-    const { request, error } = useHttp();
+    // const { request, error } = useHttp();
     const formRef = useRef(null);
     const navigate = useNavigate();
-    const auth = useContext(AuthContext);
+    // const auth = useContext(AuthContext);
 
     const loginHandler = async (formData) => {
         const user = Object.fromEntries(formData);
@@ -24,7 +24,7 @@ const LoginPage = () => {
   return (
       <LoginForm
           loginHandler={loginHandler}
-          error={error}
+          // error={error}
           ref={formRef}
       />
   )

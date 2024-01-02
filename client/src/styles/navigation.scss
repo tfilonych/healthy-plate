@@ -9,7 +9,7 @@
 
     a {
       padding-right: 7.1rem;
-      color: #424242;
+      //color: #424242;
       font-size: 1.4rem;
       text-decoration: none;
 
@@ -37,15 +37,14 @@
       height: auto;
       position: absolute;
       width: 100%;
-      background: black;
       top: 0;
       margin-top: 62px;
       left: 0;
-      transform: translateY(-200px);
-      transition: transform, opacify .2s ease-in-out;
+      transform: translateX(-200px);
+      transition: all 0.5s ease-in-out;
       opacity: 0;
       pointer-events: auto;
-      z-index: 1;
+      z-index: -1;
 
       &:before {
         content: "";
@@ -89,19 +88,24 @@
     .nav-icon:after,
     .nav-icon:before,
     .nav-icon div {
-      background-color: $primary-color-light;
+      background-color: $primary-color-dark;
       border-radius: $border-radius;
       content: "";
       display: block;
       height: 0.2rem;
       margin: 0.4rem 0;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.5s ease-in-out;
     }
 
     &:focus-within {
       .nav {
         transform: none;
         opacity: 1;
+        transition: all 0.5s ease-in-out;
+        z-index: 1;
+      }
+      .nav-icon {
+        cursor: pointer;
       }
       .nav-icon, .logo-sm {
         pointer-events: none;

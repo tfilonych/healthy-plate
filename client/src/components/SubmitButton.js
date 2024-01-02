@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormStatus } from 'react-dom';
 
 const SubmitButton = () => {
-    const data = useFormStatus();
+    const data = experimental_useFormStatus();
     const disabled = data.pending;
 
     return (

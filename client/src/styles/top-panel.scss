@@ -1,15 +1,15 @@
 .top-panel {
-  background: $primary-color-dark;
+  //background: $primary-color-dark;
   height: 4.3rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 
   .login-btn {
     @extend %button;
-    background: $primary-color-light;
     margin: 2rem;
     align-self: center;
-    color: $primary-color-dark;
+    border: 1px solid;
     transition: all .5s ease;
 
     &:hover {
@@ -22,4 +22,61 @@
       transition: all .5s ease;
     }
   }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 4.2rem;
+    height: 2.4rem;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .slider {
+        background-color: transparent;
+        border: 1px solid;
+
+        &:before {
+          transform: translateX(1.8rem);
+          background: white;
+        }
+      }
+    }
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    border: 1px solid;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 1.8rem;
+      width: 1.8rem;
+      left: .2rem;
+      bottom: .2rem;
+      background-color: black;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 2.4rem;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
 }

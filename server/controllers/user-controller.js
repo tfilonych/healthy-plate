@@ -4,8 +4,10 @@ const userService = require('../services/user-service')
 
 class UserController {
   async registration (req, res, next) {
+    const { email, password, firstName, lastName, phone, city, country } = req.body;
     try {
       const errors = resultsValidator(req)
+      console.log(errors)
 
       if (errors.length > 0) {
         return res
@@ -15,11 +17,10 @@ class UserController {
             message: 'Not valid data'
           })
       }
-      const { email, password } = req.body
-      const userData = await userService.registration(email, password)
+      const userData = await userService.registration(req.body)
 
       res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
-      res.status(201).json({ message: 'User has been created!' })
+      res.status(201).json({ message: 'User has been created!' , userData})
     } catch (e) {
       console.log(e)
       res.status(500).json({ message: 'Something went wrong' })
@@ -30,6 +31,7 @@ class UserController {
     console.log('INSIDE LOGIN USER CONTROLLER')
     try {
       const errors = resultsValidator(req)
+      console.log(req)
       console.log('ERRORS LENGTH ');
       console.log(errors)
 

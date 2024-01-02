@@ -1,9 +1,16 @@
-import React, { Suspense } from 'react';
+import React, {Suspense, useEffect} from 'react';
+import axios from 'axios';
 import { Await, defer, Link, useLoaderData } from 'react-router-dom';
 import RecipeList from '../components/RecipeList';
 
 const RecipesPage = () => {
   const { recipes } = useLoaderData()
+    console.log(recipes)
+
+    useEffect(() => {
+        console.log(recipes)
+    }, []);
+
 
   return (
     <>
@@ -23,8 +30,11 @@ const RecipesPage = () => {
 };
 
 const getRecipes = async() => {
+    console.log('yeyeyeyeyyeyeyye')
   const response = await fetch('/api/recipe/all');
-  return await response.json();
+    const data = await response.json();
+    console.log(data)
+  return response;
 }
 
 const recipesLoader = async() => {

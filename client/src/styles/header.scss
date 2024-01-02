@@ -1,6 +1,5 @@
-.header {
+header {
   @media screen and (max-width: 600px) {
-    background: $primary-color-dark;
     height: 60px;
     display: flex;
     flex-direction: row-reverse;
@@ -11,7 +10,6 @@
     overflow: hidden;
 
     .logo-sm {
-      background: $primary-color-light;
       margin: 1rem auto;
     }
 

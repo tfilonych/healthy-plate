@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { redirect, useNavigate } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook';
 import AuthContext from '../context/AuthContext';
@@ -9,7 +9,7 @@ import ImageLoad from '../components/recipeCard/ImageLoad';
 const CreateRecipePage = () => {
   const navigate = useNavigate();
   const { request } = useHttp();
-  const { token } = useContext(AuthContext);
+  // const { token } = useContext(AuthContext);
   const [form, setForm] = useState({
     title: '',
     ingredients: [],

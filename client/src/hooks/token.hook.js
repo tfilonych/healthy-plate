@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { storageName } from '../../config/config';
+import { storageName } from '../config/config';
 import { useHttp } from './http.hook';
 import useStorage from './storage';
 

@@ -1,15 +1,29 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from '../components/Header';
+import HeaderWrapper from '../components/header/HeaderWrapper';
 import Footer from '../components/Footer';
+import TopPanel from '../components/header/TopPanel';
+import Logo from '../components/header/Logo';
+import Navbar from '../components/header/Navbar';
+import AuthContext from '../context/AuthContext';
 
 const Layout = () => {
+    // const { isAuthenticated, logout } = useContext(AuthContext);
     return (
         <>
-            <Header />
-            <div className="hp-content">
+            <HeaderWrapper >
+                <TopPanel  />
+                <Logo />
+                <div className="navigation">
+                    <div className="nav-icon" tabIndex="0">
+                        <div></div>
+                    </div>
+                    <Navbar />
+                </div>
+            </HeaderWrapper>
+            <main className="hp-content">
                 <Outlet />
-            </div>
+            </main>
             <Footer />
         </>
     )

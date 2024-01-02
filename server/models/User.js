@@ -14,6 +14,18 @@ const schema = new Schema({
         type: Boolean,
         default: false
     },
+    phone: {
+        type: Number,
+        required: false
+    },
+    city: {
+        type: String,
+        required: false
+    },
+    country: {
+        type: String,
+        required: false
+    },
     activationLink: String,
     recipes: [{
         type: Types.ObjectId,

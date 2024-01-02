@@ -82,7 +82,6 @@
   textarea {
     min-height: 5rem;
     display: block;
-    background-color: transparent;
     border: none;
     border-bottom: 1px solid rgba(0,0,0,.26);
     outline: 0;
@@ -95,12 +94,10 @@
   }
   .add-new-btn {
     @extend %button;
-    color: $primary-color-light;
-    background: $primary-color-dark;
     width: 100%;
 
     &:hover {
-      background: $hover-dark;
+      //background: $hover-dark;
     }
   }
 }
@@ -170,11 +167,11 @@
     }
     .add-new-btn {
       @extend %button;
-      color: $primary-color-light;
-      background: $primary-color-dark;
+      //color: $primary-color-light;
+      //background: $primary-color-dark;
 
       &:hover {
-        background: $hover-dark;
+        //background: $hover-dark;
       }
     }
   }
@@ -182,11 +179,11 @@
 
 .recipe-save-btn {
   @extend %button;
-  color: $primary-color-light;
-  background: $primary-color-dark;
+  //color: $primary-color-light;
+  //background: $primary-color-dark;
   margin-top: 2rem;
 
   &:hover {
-    background: $hover-dark;
+    //background: $hover-dark;
   }
 }
