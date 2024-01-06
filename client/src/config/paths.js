@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   // Source files
-  src: path.resolve(__dirname, '../src'),
+  src: path.resolve(__dirname, '../render'),
   server: path.resolve(__dirname, '../../server'),
 
   // Production build files

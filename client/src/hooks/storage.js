@@ -1,39 +1,31 @@
 import React, { useEffect, useState } from 'react';
-const getStorageValue = () => {
-  const val = localStorage.getItem(storageName);
 
-  if (val) {
-    try {
-      return JSON.parse(val);
-    } catch (e) {
-      /* storage with the key "storageName" doesn't contain an object */
-      //return val;
-    }
-  }
-  return null;
-}
 const useStorage = (storageName) => {
   if (!storageName) return;
+  const [ storageVal, setStorageVal ] = useState(null);
 
+  const getStorageValue = () => {
+    const val = localStorage.getItem(storageName);
 
-  // const getStorageValue = () => {
-  //   const val = localStorage.getItem(storageName);
-  //
-  //   if (val) {
-  //     try {
-  //       return JSON.parse(val);
-  //     } catch (e) {
-  //       /* storage with the key "storageName" doesn't contain an object */
-  //       //return val;
-  //     }
-  //   }
-  //   return null;
-  // }
-
-  const [storageVal, setStorageVal] = useState(null);
+    if (val) {
+      try {
+        return JSON.parse(val);
+      } catch (e) {
+        /* storage with the key "storageName" doesn't contain an object */
+        //return val;
+      }
+    }
+    return null;
+  }
 
   useEffect(() => {
-    setStorageVal(() => getStorageValue(storageName))
+    setStorageVal(() => getStorageValue(storageName));
+
+    window.addEventListener('storage', syncLocalStorage);
+
+    return () => {
+      window.removeEventListener('storage', syncLocalStorage);
+    };
   }, []);
 
 
@@ -52,15 +44,6 @@ const useStorage = (storageName) => {
       setStorageVal(e.newValue);
     }
   };
-
-  useEffect(() => {
-    window.addEventListener('storage', syncLocalStorage);
-
-    return () => {
-      window.removeEventListener('storage', syncLocalStorage);
-    };
-  }, []);
-
 
   return {
     storageVal,

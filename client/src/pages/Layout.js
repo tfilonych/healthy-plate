@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import HeaderWrapper from '../components/header/HeaderWrapper';
 import Footer from '../components/Footer';
@@ -8,25 +8,26 @@ import Navbar from '../components/header/Navbar';
 import AuthContext from '../context/AuthContext';
 
 const Layout = () => {
-    // const { isAuthenticated, logout } = useContext(AuthContext);
-    return (
-        <>
-            <HeaderWrapper >
-                <TopPanel  />
-                <Logo />
-                <div className="navigation">
-                    <div className="nav-icon" tabIndex="0">
-                        <div></div>
-                    </div>
-                    <Navbar />
-                </div>
-            </HeaderWrapper>
-            <main className="hp-content">
-                <Outlet />
-            </main>
-            <Footer />
-        </>
-    )
+  //const { isAuthenticated, logout } = useContext(AuthContext);
+
+  return (
+    <>
+      <HeaderWrapper>
+        <TopPanel/>
+        <Logo/>
+        <div className="navigation">
+          <div className="nav-icon" tabIndex="0">
+            <div></div>
+          </div>
+          <Navbar/>
+        </div>
+      </HeaderWrapper>
+      <main className="hp-content">
+        <Outlet/>
+      </main>
+      <Footer/>
+    </>
+  )
 }
 
 export default Layout;

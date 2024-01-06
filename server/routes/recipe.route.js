@@ -1,11 +1,10 @@
-const { Router } = require('express');
-const mongoose = require('mongoose')
-const Recipe = require('../models/Recipe');
-const auth = require('../middleware/auth.middleware');
-const router = Router();
-const multer = require('multer');
-const config = require('config');
+import Router from 'express';
+import Recipe from '../models/Recipe';
+import auth from '../middleware/auth.middleware';
+import multer from 'multer';
+import dbConnect from './../db';
 
+const router = Router();
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
@@ -29,7 +28,6 @@ const upload = multer({
     cb(undefined, true); // continue with upload
   }
 });
-
 
 router.post(
 '/save',
@@ -61,53 +59,28 @@ router.post(
   }
 })
 
-router.get('/all', async (req, res) => {
-  console.log('YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY')
-  try {
-
-    // if (mongoose.connection.readyState !== 1) {
-    //   // Mongoose is not connected
-    //   throw new Error('Mongoose is not connected to the database');
-    // }
-
-    await mongoose.connect(config.get('mongoUri'), {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-
-    });
-      const recipes = await Recipe.find({})
-        console.log('hello from try section!!!!!')
-        console.log(recipes)
+router.get(
+    '/all',
+    async (req, res) => {
+      await dbConnect();
+      try {
+        const recipes = await Recipe.find({});
 
         res.json(recipes);
-  } catch (e) {
-    console.log('YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY errrrrrrrr')
-    console.log(e)
-    res.status(500).json({ message: 'Something went wrong. Please, try again !!!!' });
-  }
+      } catch (e) {
+        res.status(500).json({ message: 'Something went wrong. Please, try again !!!!' });
+      }
 })
-router.get('/:id', async (req, res) => {
-  console.log(1111111111111111111111111111111111)
-  try {
-    const recipe = await Recipe.findById({_id: req.params.id});
-
-    res.json(recipe);
-  } catch (e) {
-    res.status(500).json({message: 'Something went wrong. Please, try again !!!!'});
-  }
+router.get(
+    '/:id',
+    async (req, res) => {
+      try {
+        await dbConnect();
+        const recipe = await Recipe.findById({_id: req.params.id});
+        res.json(recipe);
+      } catch (e) {
+        res.status(500).json({ message: 'Something went wrong. Please, try again !!!!' });
+      }
 });
 
-router.get('/test/one', async (req, res) => {
-  console.log(1111111111111111111111111111111111)
-    try {
-      res.json({j: "jiuhu"})
-
-    } catch (e) {
-      res.status(500).json({ message: 'Somet!!!!' });
-    }
-
-});
-
-
-module.exports = router;
+export default router;

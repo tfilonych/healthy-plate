@@ -1,6 +1,6 @@
-const { check, validationResult } = require('express-validator');
+import { check, validationResult } from 'express-validator';
 
-exports.registerValidator = () => [
+export const registerValidator = () => [
   check('email')
     .isEmail()
     .withMessage('Not valid email'),
@@ -9,7 +9,7 @@ exports.registerValidator = () => [
     .withMessage('Min length of password has to be 6 symbols')
 ]
 
-exports.loginValidator = () => [
+export const loginValidator = () => [
   check('email',
     'Please, enter a valid email'
   ).normalizeEmail().isEmail(),
@@ -19,7 +19,7 @@ exports.loginValidator = () => [
   ).exists()
 ]
 
-exports.resultsValidator = (req) => {
+export const resultsValidator = (req) => {
   const messages = [];
 
   if (!validationResult(req).isEmpty()) {

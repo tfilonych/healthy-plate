@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, createBrowserRouter, createRoutesFromElements, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import { RecipesPage, recipesLoader } from './pages/RecipesPage';
 import CreateRecipePage from './pages/CreateRecipePage';
-import { RecipePage, recipeLoader } from './pages/RecipePage';
+import RecipePage from './pages/RecipePage';
+import RecipesPage from './pages/RecipesPage';
 import AboutPage from './pages/AboutPage';
 import Layout from './pages/Layout';
 import SignUpPage from './pages/SignUpPage';
@@ -28,7 +28,7 @@ import SignUpPage from './pages/SignUpPage';
   //         </Switch>
   //     )
   // }
-  //   const router = createBrowserRouter([
+  //   const routes = createBrowserRouter([
   //       {
   //           path: "/",
   //           element: <Layout />,
@@ -64,7 +64,27 @@ import SignUpPage from './pages/SignUpPage';
     //                  />
     //              </Route>
     // )
-
+// const router = createBrowserRouter([
+//     {
+//         path: "/",
+//         element: <Layout />,
+//         children: [
+//             {
+//                 index: true,
+//                 element: <HomePage />,
+//             },
+//             {
+//                 path: "/about",
+//                 element: <AboutPage />,
+//             },
+//             {
+//                 path: "/recipes",
+//                 // loader: recipesLoader,
+//                 element: <RecipesPage />,
+//             }
+//         ],
+//     },
+// ]);
 
     const routes = [
         {
@@ -81,8 +101,13 @@ import SignUpPage from './pages/SignUpPage';
                 },
                 {
                     path: "/recipes",
-                    loader: recipesLoader,
+                    // loader: recipesLoader,
                     element: <RecipesPage />,
+                },
+                {
+                    path: "/recipes/:id",
+                    // loader: recipesLoader,
+                    element: <RecipePage />,
                 }
             ]
         }

@@ -1,12 +1,11 @@
-const Router = require('express')
-const router = new Router()
+const Router = require('express');
+const router = new Router();
+import authRouter from './auth.route';
+import linkRouter from './link.route';
+import recipeRouter from './recipe.route';
 
-const authRouter = require('./auth.route')
-const linkRouter = require('./link.route')
-const recipeRouter = require('./recipe.route')
+router.use('/auth', authRouter);
+router.use('/link', linkRouter);
+router.use('/recipe', recipeRouter);
 
-router.use('/auth', authRouter)
-router.use('/link', linkRouter)
-router.use('/recipe', recipeRouter)
-
-module.exports = router;
+export default router;

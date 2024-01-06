@@ -1,9 +1,9 @@
 // webpack.config.js
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
     mode: 'development',
-    entry: './client/src/index.js',
+    entry: './client/render/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),

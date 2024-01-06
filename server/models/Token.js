@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+import { Schema, model } from 'mongoose';
 
 const schema = new Schema({
   user: {
@@ -10,6 +10,6 @@ const schema = new Schema({
     required: true,
     expireAfterSeconds: '15m'
   }]
-})
+});
 
-module.exports = model('Token', schema)
+export default model('Token', schema);

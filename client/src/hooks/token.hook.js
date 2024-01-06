@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { storageName } from '../config/config';
 import { useHttp } from './http.hook';
 import useStorage from './storage';
 
 const useToken = () => {
   const { storageVal } = useStorage(storageName);
-  const [token, setToken] = useState(storageVal);
+  const [ token, setToken ] = useState(storageVal);
   const { request } = useHttp();
 
   const getExpirationDate = () => {
@@ -23,9 +23,9 @@ const useToken = () => {
     return Date.now() > getExpirationDate();
   };
 
-  const getUpdatedToken =  async (token) => {
+  const getUpdatedToken = async (token) => {
     try {
-      return await request('/api/auth/token', 'POST', {token});
+      return await request('/api/auth/token', 'POST', { token });
     } catch (e) {
       console.warn(e.message);
     }

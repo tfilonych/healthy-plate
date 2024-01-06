@@ -4,7 +4,7 @@ const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
 const serverConfig = {
     target: "node",
-    entry: "./src/index.js",
+    entry: "./render/index.js",
     output: {
         filename: "server.bundle.js",
         path: path.resolve(__dirname, "build"),

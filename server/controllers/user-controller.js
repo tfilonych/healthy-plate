@@ -1,6 +1,7 @@
-const config = require('config')
-const { resultsValidator } = require('../middleware/user-validation.middleware')
-const userService = require('../services/user-service')
+import config from 'config';
+import { resultsValidator } from '../middleware/user-validation.middleware';
+import userService from  '../services/user-service';
+import dbConnect from '../db'
 
 class UserController {
   async registration (req, res, next) {
@@ -20,22 +21,19 @@ class UserController {
       const userData = await userService.registration(req.body)
 
       res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
-      res.status(201).json({ message: 'User has been created!' , userData})
+      res.status(201).json({ message: 'User has been created!', userData })
     } catch (e) {
       console.log(e)
       res.status(500).json({ message: 'Something went wrong' })
     }
   }
 
-  async login (req, res, next) {
-    console.log('INSIDE LOGIN USER CONTROLLER')
+  async login(req, res, next) {
     try {
       const errors = resultsValidator(req)
-      console.log(req)
-      console.log('ERRORS LENGTH ');
       console.log(errors)
 
-      if(errors.length > 0) {
+      if (errors.length > 0) {
         return res
           .status(400)
           .json({
@@ -43,17 +41,18 @@ class UserController {
           })
       }
       const { email, password } = req.body
+      await dbConnect();
       const token = await userService.login(email, password)
 
       res.cookie('refreshToken', token.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
-      res.status(200).json({token: token})
+      res.status(200).json({ token: token })
 
     } catch (e) {
       res.status(500).json({ message: e?.message ?? 'Something went wrong' })
     }
   }
 
-  async logout (req, res, next) {
+  async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies
       const token = await userService.logout(refreshToken)
@@ -65,7 +64,7 @@ class UserController {
     }
   }
 
-  async activate (req, res, next) {
+  async activate(req, res, next) {
     try {
       const { link } = req.params
 
@@ -77,7 +76,7 @@ class UserController {
     }
   }
 
-  async refresh (req, res, next) {
+  async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies
       const userData = await userService.refresh(refreshToken)

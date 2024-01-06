@@ -1,53 +1,45 @@
 import React from 'react';
-import {createBrowserRouter, Navigate, Outlet, Route, RouterProvider, Routes} from 'react-router-dom';
-import routes from './routes';
-// import AuthContext from './context/AuthContext';
-// import useAuth from './hooks/auth.hook';
-// import useToken from './hooks/token.hook';
-// import Layout from './pages/Layout';
+import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
-import HeaderWrapper from './components/header/HeaderWrapper';
-import TopPanel from './components/header/TopPanel';
-import Logo from './components/header/Logo';
-import Navbar from './components/header/Navbar';
-import Footer from './components/Footer';
-import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
-import {recipesLoader, RecipesPage} from './pages/RecipesPage';
-import {recipeLoader, RecipePage} from './pages/RecipePage';
+import RecipesPage from './pages/RecipesPage';
+import RecipePage from './pages/RecipePage';
 import CreateRecipePage from './pages/CreateRecipePage';
 import Layout from './pages/Layout';
+import LoginPage from './pages/LoginPage';
+import AuthContext from './context/AuthContext';
+import useAuth from './hooks/auth.hook';
+import useToken from './hooks/token.hook';
 
 const App = () => {
-  // const { login, logout, isAuthenticated } = useAuth();
-  // const { token } = useToken();
-  // console.log('isAuthenticated ', isAuthenticated);
-  // const routes = useRoutes();
-  //   let router = createBrowserRouter(routes);
-
-
-  // return (
-  //     <Layout>
-  //         <RouterProvider router={routes} />
-  //     </Layout>
-  // )
+  const { login, logout, isAuthenticated } = useAuth();
+  const { token } = useToken();
+  console.log('isAuthenticated ', isAuthenticated);
 
   return (
-      <>
-          <Layout/>
-      </>)
-    // <AuthContext.Provider
-    //   value={{
-    //     // token,
-    //     // login,
-    //     // logout,
-    //     // isAuthenticated,
-    //   }}
-    // >
-        {/*<RouterProvider router={routes} />*/}
-    // </AuthContext.Provider>
-  // );
+    <AuthContext.Provider
+      value={{
+        token,
+        login,
+        logout,
+        isAuthenticated,
+      }}
+    >
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<HomePage/>}/>
+          <Route path="/about" element={<AboutPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/sign-up" element={<SignUpPage/>}/>
+          <Route path="/recipes" element={<RecipesPage/>}/>
+          <Route path="/recipes/:id" element={<RecipePage/>}/>
+          <Route path="/create-recipe" element={<CreateRecipePage/>}/>
+        </Route>
+      </Routes>
+
+    </AuthContext.Provider>
+  );
 }
 
 export default App;

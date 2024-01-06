@@ -1,8 +1,15 @@
-require("ignore-styles");
+const express = require("express");
+const path = require("path");
+const app = express();
+const { render } = require("../render/renderClient");
 
-require("@babel/register")({
-    ignore: [/(node_modules)/],
-    presets: ["@babel/preset-env", "@babel/preset-react"],
+app.use(express.static(path.resolve(__dirname, "../build")));
+app.use(express.static(path.resolve(__dirname, "../assets")));
+
+app.get("/", (req, res) => {
+    render(res);
 });
 
-require("./server");
+app.listen(3000, () => {
+    console.log("listening on port 3000");
+});

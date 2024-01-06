@@ -40,14 +40,14 @@ module.exports = {
     // Generates deprecation warning: https://github.com/jantimon/html-webpack-plugin/issues/1501
     new HtmlWebpackPlugin({
       title: 'Healthy Plate',
-      // favicon: paths.src + '/images/favicon.ico',
+      // favicon: paths.render + '/images/favicon.ico',
       template: paths.src + '/template.html', // template file
       filename: 'index.html', // output file
     }),
 
     // ESLint configuration
     // new ESLintPlugin({
-    //   files: ['.', 'src', 'config'],
+    //   files: ['.', 'render', 'config'],
     //   formatter: 'table',
     // }),
 
