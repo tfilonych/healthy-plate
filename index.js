@@ -7,9 +7,7 @@ import cookieParser from 'cookie-parser';
 import router from './server/routes'
 import renderClient from './render/renderClient';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const staticFiles = path.resolve(__dirname + "/client/build/static");
 const publicFiles = path.resolve(__dirname + "/client/public");
 const app = express();

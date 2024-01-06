@@ -14,7 +14,8 @@ require('@babel/register')({
     plugins: [
         "@babel/transform-runtime",
         "@babel/plugin-syntax-dynamic-import",
-        "babel-plugin-dynamic-import-node"
+        "babel-plugin-dynamic-import-node",
+        "babel-plugin-transform-import-meta"
     ]
 });
 

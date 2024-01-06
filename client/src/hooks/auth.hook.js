@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { storageName } from '../config/config';
+import storageName from '../config/config';
 import useToken from './token.hook';
 import useStorage from './storage';
 

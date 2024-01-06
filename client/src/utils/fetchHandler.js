@@ -1,8 +1,8 @@
 import wrapPromise from './wrapPromise'
-import { BASE_URL } from '../config/config';
+import config from '../config/config';
 
 const fetchData = (url) => {
-  const promise = fetch(`${BASE_URL}${url}`)
+  const promise = fetch(`${config.BASE_URL}${url}`)
     .then((res) => res.json())
     .then((data) => data)
 

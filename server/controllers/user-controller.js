@@ -75,8 +75,9 @@ class UserController {
     }
   }
 
-  async refresh(req, res) {
+  async token(req, res) {
     try {
+      await dbConnect();
       const { refreshToken } = req.cookies
       const userData = await userService.refresh(refreshToken)
 

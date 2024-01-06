@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { storageName } from '../config/config';
+import storageName from '../config/config';
 import { useHttp } from './http.hook';
 import useStorage from './storage';
 
 const useToken = () => {
-  const { storageVal } = useStorage(storageName);
+  const { storageVal=null } = useStorage(storageName);
   const [ token, setToken ] = useState(storageVal);
   const { request } = useHttp();
 

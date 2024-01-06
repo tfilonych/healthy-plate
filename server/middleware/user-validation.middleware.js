@@ -1,23 +1,25 @@
 import { check, validationResult } from 'express-validator';
 
-export const registerValidator = () => [
+export const registerValidator = (req, res, next) => {
   check('email')
     .isEmail()
-    .withMessage('Not valid email'),
-  check('password')
-    .isLength({ min: 6 })
-    .withMessage('Min length of password has to be 6 symbols')
-]
+    .withMessage('Not valid email')
+    check('password')
+      .isLength({ min: 6 })
+      .withMessage('Min length of password has to be 6 symbols');
+  next();
+}
 
-export const loginValidator = () => [
-  check('email',
-    'Please, enter a valid email'
-  ).normalizeEmail().isEmail(),
-  check(
-    'password',
-    'Min length of password has to be 6 symbols'
-  ).exists()
-]
+export const loginValidator = (req, res, next) => {
+    check('email',
+      'Please, enter a valid email'
+    ).normalizeEmail().isEmail()
+    check(
+      'password',
+      'Min length of password has to be 6 symbols'
+    ).exists();
+  next();
+};
 
 export const resultsValidator = (req) => {
   const messages = [];
@@ -30,4 +32,10 @@ export const resultsValidator = (req) => {
     }
   }
   return messages
+}
+
+export default {
+  registerValidator,
+  loginValidator,
+  resultsValidator
 }
