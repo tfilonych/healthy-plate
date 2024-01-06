@@ -1,12 +1,12 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin') // extract css to fil
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+//import MiniCssExtractPlugin from 'mini-css-extract-plugin'; // extract css to fil
 // const PrettierPlugin = require('prettier-webpack-plugin')
 // const ESLintPlugin = require('eslint-webpack-plugin')
-const paths = require('./paths')
+import paths from './paths';
 
-module.exports = {
+export default {
   // Where webpack looks to start building the bundle
   entry: [paths.src + '/index.js'],
 
@@ -86,12 +86,6 @@ module.exports = {
           loader: 'file-loader',
         }]
       }
-
-
-
-
-
-
     ],
   },
 

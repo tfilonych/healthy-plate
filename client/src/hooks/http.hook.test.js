@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-
+/* eslint-disable */
 import { renderHook, act } from '@testing-library/react';
 import { useHttp } from './http.hook';
 const requestBody = {

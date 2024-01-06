@@ -1,5 +1,6 @@
-const { Router } = require('express');
-const Link = require('../models/Link');
+import Router from 'express';
+import Link from '../models/Link';
+
 const router = Router();
 
 router.get('/:code', async (req, res) => {
@@ -19,4 +20,4 @@ router.get('/:code', async (req, res) => {
     }
 })
 
-module.exports = router;
+export default router;

@@ -1,7 +1,10 @@
-const path = require("path");
-const client = require('./webpack.dev.js')
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+import path from 'path';
+import { fileURLToPath } from 'url';
+import client from './webpack.dev.js';
+import NodePolyfillPlugin from "node-polyfill-webpack-plugin";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const serverConfig = {
     target: "node",
     entry: "./render/index.js",
@@ -22,4 +25,4 @@ const serverConfig = {
     ]
 };
 
-module.exports = [client, serverConfig];
+export default [client, serverConfig];

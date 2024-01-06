@@ -5,7 +5,7 @@ import { useHttp } from '../hooks/http.hook';
 import AuthContext from '../context/AuthContext';
 
 const LoginPage = () => {
-  const { request, error } = useHttp();
+  const { request } = useHttp();
   const formRef = useRef(null);
   const navigate = useNavigate();
   const auth = useContext(AuthContext);

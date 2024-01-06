@@ -1,10 +1,14 @@
 import express from 'express';
 import http from 'http';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import router from './server/routes'
 import renderClient from './render/renderClient';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const staticFiles = path.resolve(__dirname + "/client/build/static");
 const publicFiles = path.resolve(__dirname + "/client/public");

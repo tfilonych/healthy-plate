@@ -1,10 +1,8 @@
-const webpack = require('webpack')
-const { merge } = require('webpack-merge')
-const common = require('./webpack.common.js')
-// const paths = require('./paths')
-// const { HttpsProxyAgent } = require('https-proxy-agent');
+import webpack from 'webpack';
+import { merge } from 'webpack-merge';
+import common from './webpack.common.js';
 
-module.exports = merge(common, {
+export default merge(common, {
   // Set the mode to development or production
   mode: 'development',
 

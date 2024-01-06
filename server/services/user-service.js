@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import uuid from 'uuid';
-import config from 'config';
 import UserModel from './../models/User';
 import UserDto from '../dtos/user-dto';
 // import mailService from '../services/mail-service';
@@ -73,7 +72,7 @@ class UserService {
     if (!userData || !tokenFromDB) {
       throw new Error('User is not authorized!');
     }
-    const user = await UserModel.findById(userData.id);;
+    const user = await UserModel.findById(userData.id);
 
     const userDto = new UserDto(user);
     const tokens = await tokenService.generateTokens({ ...userDto });

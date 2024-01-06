@@ -4,8 +4,7 @@ import userService from  '../services/user-service';
 import dbConnect from '../db'
 
 class UserController {
-  async registration (req, res, next) {
-    const { email, password, firstName, lastName, phone, city, country } = req.body;
+  async registration (req, res) {
     try {
       const errors = resultsValidator(req)
       console.log(errors)
@@ -28,7 +27,7 @@ class UserController {
     }
   }
 
-  async login(req, res, next) {
+  async login(req, res) {
     try {
       const errors = resultsValidator(req)
       console.log(errors)
@@ -52,7 +51,7 @@ class UserController {
     }
   }
 
-  async logout(req, res, next) {
+  async logout(req, res) {
     try {
       const { refreshToken } = req.cookies
       const token = await userService.logout(refreshToken)
@@ -64,7 +63,7 @@ class UserController {
     }
   }
 
-  async activate(req, res, next) {
+  async activate(req, res) {
     try {
       const { link } = req.params
 
@@ -76,7 +75,7 @@ class UserController {
     }
   }
 
-  async refresh(req, res, next) {
+  async refresh(req, res) {
     try {
       const { refreshToken } = req.cookies
       const userData = await userService.refresh(refreshToken)
@@ -84,9 +83,9 @@ class UserController {
       res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
       res.status(200).json({ ...userData })
     } catch (e) {
-
+      console.log(e);
     }
   }
 }
 
-module.exports = new UserController()
+export default new UserController()

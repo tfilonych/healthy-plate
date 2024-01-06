@@ -1,5 +1,7 @@
+import React from 'react';
 import App from './App';
 
+// eslint-disable-next-line react/prop-types
 const AppSSR = ({ bootStrapCSS }) => {
   return (
     <html>
@@ -9,6 +11,7 @@ const AppSSR = ({ bootStrapCSS }) => {
         <base href="/"/>
         <title>SSR React 18 example</title>
         {
+          // eslint-disable-next-line react/prop-types
           bootStrapCSS.map(cssPath => <link key={cssPath} rel="stylesheet" href={cssPath}></link>)
         }
       </head>

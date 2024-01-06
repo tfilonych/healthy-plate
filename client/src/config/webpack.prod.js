@@ -1,14 +1,11 @@
-// eslint-disable-next-line import/no-unresolved
-const { merge } = require('webpack-merge');
+import { merge } from 'webpack-merge';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import common from './webpack.common.js';
+import paths from './paths';
 
-// eslint-disable-next-line import/no-unresolved
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const common = require('./webpack.common.js');
-const paths = require('./paths');
-
-module.exports = merge(common, {
+export default merge(common, {
   mode: 'production',
   devtool: false,
   output: {

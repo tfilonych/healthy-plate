@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+/* eslint-disable */
 import React from 'react';
 import { renderHook, act } from '@testing-library/react';
 import useToken from './token.hook';
