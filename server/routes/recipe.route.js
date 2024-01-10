@@ -8,9 +8,13 @@ const router = Router();
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
+      console.log('from destination !!!!!!')
+      console.log(file)
       cb(null, './images');
     },
     filename(req, file, cb) {
+      console.log('from filename !!!!!!')
+      console.log(file)
       cb(null, `${new Date().getTime()}_${file.originalname}`);
     }
   }),
@@ -34,8 +38,14 @@ router.post(
   upload.single('file'),
   auth,
   async (req, res) => {
+  console.log('After file upload')
   try {
+    await dbConnect();
     const { title, ingredients, procedures } = req.body;
+    console.log('request body is !!!!!')
+    console.log(req.body)
+    console.log('request file is')
+    console.log(req.file)
     const existing = await Recipe.findOne({ title });
 
     if (existing) {
@@ -55,6 +65,8 @@ router.post(
 
     res.status(201).json({ recipe });
   } catch (e) {
+    console.log('inside catch !!!')
+    console.log(e)
     res.status(500).json({ message: e.message });
   }
 })

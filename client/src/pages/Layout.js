@@ -5,10 +5,8 @@ import Footer from '../components/Footer';
 import TopPanel from '../components/header/TopPanel';
 import Logo from '../components/header/Logo';
 import Navbar from '../components/header/Navbar';
-//import AuthContext from '../context/AuthContext';
 
 const Layout = () => {
-  //const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
     <>

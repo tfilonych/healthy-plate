@@ -1,52 +1,45 @@
-import { useState, useCallback, useEffect } from 'react';
-import storageName from '../config/config';
-import useToken from './token.hook';
+import {useState} from 'react';
+import axios from 'axios';
+import config from '../config/config';
 import useStorage from './storage';
+import $api from '../http';
 
 const useAuth = () => {
-  const { updateStorage, clearStorage } = useStorage(storageName);
-  const {
-    token,
-    isTokenExpired,
-    getUpdatedToken,
-    removeToken
-  } = useToken();
-  const [ready, setReady] = useState(false);
+  const {clearStorage} = useStorage(config.storageName);
+  const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthStatus] = useState(false);
 
-  const login = (newToken=null) => {
-    if (newToken && newToken.accessToken) {
-      updateStorage(newToken);
+  const login = async (user) => {
+    try {
+      const response = await $api.post('/api/auth/login', {...user});
+      localStorage.setItem(config.storageName, response.data.accessToken);
+      setAuthStatus(true);
+      setUser(response.data.user);
+    } catch (e) {
+      console.log(e.response?.data?.message);
     }
-    setAuthStatus(true);
   }
 
-  const logout = useCallback(async() => {
+  const logout = () => {
     setAuthStatus(false);
     clearStorage();
-    await removeToken()
-  }, []);
+  }
 
   const checkAuth = async () => {
-    if (token && token.accessToken) {
-      const isTokenExp = isTokenExpired();
-
-      if (isTokenExp) {
-        const updatedToken = await getUpdatedToken(token);
-
-        return updatedToken && updatedToken.accessToken && login(updatedToken);
-      }
-      login();
+    try {
+      const response = await axios.get(
+        `${config.BASE_URL}/api/auth/refresh`,
+        {withCredentials: true}
+      )
+      localStorage.setItem(config.storageName, response.data.accessToken);
+      setAuthStatus(true);
+      setUser(response.data.user);
+    } catch (e) {
+      console.log(e.response?.data?.message);
     }
   }
 
-  useEffect(() => {
-    checkAuth();
-
-    return () => setReady(true);
-  }, [login]);
-
-  return { login, logout, isAuthenticated, ready };
+  return {login, logout, isAuthenticated, checkAuth, user};
 };
 
 export default useAuth;

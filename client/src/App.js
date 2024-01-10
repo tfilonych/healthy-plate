@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -10,19 +10,24 @@ import Layout from './pages/Layout';
 import LoginPage from './pages/LoginPage';
 import AuthContext from './context/AuthContext';
 import useAuth from './hooks/auth.hook';
-import useToken from './hooks/token.hook';
+import config from '../src/config/config';
 
 const App = () => {
-  const { login, logout, isAuthenticated } = useAuth();
-  const { token } = useToken();
-  console.log('isAuthenticated ', isAuthenticated);
+  const { login, logout, isAuthenticated, checkAuth, user } = useAuth();
+
+  useEffect(async () => {
+    if (localStorage.getItem(config.storageName)) {
+      await checkAuth();
+    }
+  }, []);
+
 
   return (
     <AuthContext.Provider
       value={{
-        token,
         login,
         logout,
+        user,
         isAuthenticated,
       }}
     >

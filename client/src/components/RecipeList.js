@@ -1,20 +1,25 @@
 import React, {useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import defaultImage from '../images/default-image.jpg';
 import fetchData from '../utils/fetchHandler';
 
 let resource;
 
 const RecipeList = () => {
+  const controller = new AbortController();
   if (!resource) {
-    resource = fetchData('/api/recipe/all');
+    resource = fetchData('/api/recipe/all', {
+      signal: controller.signal
+    });
   }
-  const recipes = resource.read();
+  const recipes = resource.read().data;
 
   useEffect(() => {
     return () => {
-      resource = null
+      resource = null;
+      controller.abort();
     }
+
   }, []);
 
   const handleImageError = (e) => {
@@ -41,7 +46,7 @@ const RecipeList = () => {
             </div>
           </Link>
         );
-        })}
+      })}
     </>
   )
 }

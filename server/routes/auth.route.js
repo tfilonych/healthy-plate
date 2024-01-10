@@ -9,5 +9,6 @@ router.post('/login', loginValidator, userController.login);
 router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/token', userController.token);
+router.get('/refresh', userController.refresh);
 
 export default router;

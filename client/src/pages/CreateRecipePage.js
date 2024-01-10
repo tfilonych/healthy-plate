@@ -1,23 +1,21 @@
-import React, { useContext, useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
-import { useHttp } from '../hooks/http.hook';
-import AuthContext from '../context/AuthContext';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import Ingredients from '../components/recipeCard/Ingredients';
 import Procedures from '../components/recipeCard/Procedures';
 import ImageLoad from '../components/recipeCard/ImageLoad';
+import $api from '../http';
 
 const CreateRecipePage = () => {
   const navigate = useNavigate();
-  const { request } = useHttp();
-  const { token } = useContext(AuthContext);
   const [form, setForm] = useState({
     title: '',
     ingredients: [],
     procedures: '',
-    image: ''
+    image: '',
+    file: ''
   });
   const changeHandler = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({...form, [e.target.name]: e.target.value});
   };
 
   const handleAdd = (ingredient) => {
@@ -29,15 +27,17 @@ const CreateRecipePage = () => {
 
     setForm({...form, ingredients: newList});
   }
+
   const saveRecipe = async () => {
     try {
-      const data = await request('/api/recipe/save', 'POST', { ...form },{
-        Authorization: `Bearer ${token.accessToken}`,
+      const response = await $api.post('/api/recipe/save', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      navigate('/recipes')
-      redirect(data.recipe._id);
+      navigate(`/recipes/${response.data.recipe._id}`);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
 
@@ -45,7 +45,7 @@ const CreateRecipePage = () => {
     <div className="recipe-card new">
       {/*<div className="page-title">Add your recipe</div>*/}
       <div className="recipe-info">
-        <ImageLoad setForm={setForm} form={form} />
+        <ImageLoad setForm={setForm} form={form}/>
         <div className="recipe-title">
           <div className="title">Recipe title:</div>
           <input

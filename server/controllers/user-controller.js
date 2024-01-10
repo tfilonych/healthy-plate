@@ -41,10 +41,11 @@ class UserController {
       }
       const { email, password } = req.body
       await dbConnect();
-      const token = await userService.login(email, password)
+      const userData = await userService.login(email, password);
+      console.log(userData)
 
-      res.cookie('refreshToken', token.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
-      res.status(200).json({ token: token })
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
+      res.status(200).json({ ...userData })
 
     } catch (e) {
       res.status(500).json({ message: e?.message ?? 'Something went wrong' })
@@ -84,7 +85,22 @@ class UserController {
       res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
       res.status(200).json({ ...userData })
     } catch (e) {
+      console.log('yey from catch !!!!')
+      console.log(e)
       console.log(e);
+      res.status(403).json({ message: e })
+    }
+  }
+
+  async refresh(req, res, next) {
+    try {
+      await dbConnect();
+      const { refreshToken } = req.cookies;
+      const userData = await userService.refresh(refreshToken);
+      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      return res.json(userData);
+    } catch (e) {
+      next(e);
     }
   }
 }

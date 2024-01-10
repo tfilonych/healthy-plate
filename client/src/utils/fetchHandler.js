@@ -1,10 +1,8 @@
 import wrapPromise from './wrapPromise'
-import config from '../config/config';
+import $api from '../http';
 
-const fetchData = (url) => {
-  const promise = fetch(`${config.BASE_URL}${url}`)
-    .then((res) => res.json())
-    .then((data) => data)
+const fetchData = (url, options = null) => {
+  const promise = $api.get(url, options);
 
   return wrapPromise(promise)
 }

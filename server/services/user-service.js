@@ -4,6 +4,7 @@ import UserModel from './../models/User';
 import UserDto from '../dtos/user-dto';
 // import mailService from '../services/mail-service';
 import tokenService from '../services/token-service';
+import dbConnect from '../db';
 
 class UserService {
   async registration (userData) {
@@ -44,7 +45,7 @@ class UserService {
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-    return { ...tokens }
+    return { ...tokens, ...userDto }
   }
 
   async activate (link) {
@@ -64,8 +65,10 @@ class UserService {
 
   async refresh (refreshToken) {
     if (!refreshToken) {
+      console.log('you dont have refreshToken ')
       throw new Error('User is not authorized!');
     }
+    await dbConnect();
     const userData = await tokenService.validateRefreshToken(refreshToken);
     const tokenFromDB = await tokenService.findToken(refreshToken);
 
@@ -73,13 +76,16 @@ class UserService {
       throw new Error('User is not authorized!');
     }
     const user = await UserModel.findById(userData.id);
+    console.log('user is !!!!!!!')
+    console.log(user)
 
     const userDto = new UserDto(user);
-    const tokens = await tokenService.generateTokens({ ...userDto });
-
+    const tokens = tokenService.generateTokens({...userDto});
+console.log('tokens are !!!!!')
+    console.log(tokens)
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-    return { ...tokens }
+    return { user, ...tokens }
   }
 }
 
