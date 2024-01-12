@@ -7,7 +7,6 @@ class UserController {
   async registration (req, res) {
     try {
       const errors = resultsValidator(req)
-      console.log(errors)
 
       if (errors.length > 0) {
         return res
@@ -30,7 +29,6 @@ class UserController {
   async login(req, res) {
     try {
       const errors = resultsValidator(req)
-      console.log(errors)
 
       if (errors.length > 0) {
         return res
@@ -42,7 +40,6 @@ class UserController {
       const { email, password } = req.body
       await dbConnect();
       const userData = await userService.login(email, password);
-      console.log(userData)
 
       res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
       res.status(200).json({ ...userData })

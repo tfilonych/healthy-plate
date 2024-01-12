@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import defaultImage from '../images/default-image.jpg';
 import fetchData from '../utils/fetchHandler';
 
 let resource;
 
-const RecipeList = () => {
+const RecipeList = ({ query }) => {
   const controller = new AbortController();
   if (!resource) {
     resource = fetchData('/api/recipe/all', {
@@ -13,6 +13,9 @@ const RecipeList = () => {
     });
   }
   const recipes = resource.read().data;
+  const filteredRecipes = recipes.filter(recipe => {
+    return recipe.title.includes(query);
+  });
 
   useEffect(() => {
     return () => {
@@ -28,7 +31,7 @@ const RecipeList = () => {
 
   return (
     <>
-      {recipes.map(recipe => {
+      {filteredRecipes.map(recipe => {
         return (
           <Link className="recipe flip-container" key={recipe._id} to={`/recipes/${recipe._id}`}>
             <div className="txt-container">

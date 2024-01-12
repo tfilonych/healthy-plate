@@ -39,7 +39,8 @@
   "scripts": {
     "start:server": "nodemon Bootstrap.js",
     "start:client": "cross-env PORT=3008 npm run start --workspace client",
-    "build:client": "npm run build --workspace client"
+    "build:client": "npm run build --workspace client",
+    "dev": "concurrently \"npm run build:client\" \"npm run start:server\""
   },
   "browserslist": {
     "production": [

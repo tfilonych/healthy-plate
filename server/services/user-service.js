@@ -59,13 +59,12 @@ class UserService {
 
   }
 
-  async logout (refreshToken) {
-    return  await tokenService.removeToken(refreshToken);
+  async logout(refreshToken) {
+    return await tokenService.removeToken(refreshToken);
   }
 
-  async refresh (refreshToken) {
+  async refresh(refreshToken) {
     if (!refreshToken) {
-      console.log('you dont have refreshToken ')
       throw new Error('User is not authorized!');
     }
     await dbConnect();
@@ -76,13 +75,8 @@ class UserService {
       throw new Error('User is not authorized!');
     }
     const user = await UserModel.findById(userData.id);
-    console.log('user is !!!!!!!')
-    console.log(user)
-
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({...userDto});
-console.log('tokens are !!!!!')
-    console.log(tokens)
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return { user, ...tokens }
