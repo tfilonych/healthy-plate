@@ -14,7 +14,7 @@ const RecipeList = ({ query }) => {
   }
   const recipes = resource.read().data;
   const filteredRecipes = recipes.filter(recipe => {
-    return recipe.title.includes(query);
+    return recipe.title.toLowerCase().includes(query.toLowerCase());
   });
 
   useEffect(() => {

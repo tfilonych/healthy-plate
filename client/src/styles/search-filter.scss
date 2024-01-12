@@ -1,3 +1,22 @@
 .filter-container {
-  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+
+  &:focus-within {
+    input {
+      border-bottom: 1px solid;
+      transition: .5s all ease-in-out;
+    }
+  }
+
+  .fa-search {
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  input {
+    padding: 1rem;
+  }
 }
