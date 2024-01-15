@@ -1,20 +1,20 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ThemeSwitcher from './ThemeSwitcher';
-import AuthContext from '../../context/AuthContext';
+import { useSelector } from 'react-redux';
 
 const TopPanel = () => {
-  const { logout, isAuthenticated, } = useContext(AuthContext);
+  const accessToken = useSelector(state => state.user.accessToken);
 
   return (
-    <div className="top-panel">
+    <div className='top-panel'>
       <ThemeSwitcher />
-      {!isAuthenticated ?
-        <Link className="login-btn" to="/login">Sign In</Link> :
-        <Link className="login-btn" to="/" onClick={logout}>Sign Out</Link>
+      {!accessToken ?
+        <Link className='login-btn' to='/login'>Sign In</Link> :
+        <Link className='login-btn' to='/'>Sign Out</Link>
       }
     </div>
   );
-}
+};
 
 export default TopPanel;

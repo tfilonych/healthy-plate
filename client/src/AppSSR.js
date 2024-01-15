@@ -2,7 +2,7 @@ import React from 'react';
 import App from './App';
 
 // eslint-disable-next-line react/prop-types
-const AppSSR = ({ bootStrapCSS }) => {
+const AppSSR = ({bootStrapCSS, preloadedState}) => {
   return (
     <html>
     <head>
@@ -22,6 +22,7 @@ const AppSSR = ({ bootStrapCSS }) => {
     <div id="root">
       <App/>
     </div>
+    <script dangerouslySetInnerHTML={{__html: `window.__INITIAL_STATE__ = ${JSON.stringify(preloadedState)}`}}/>
     </body>
     </html>
   )

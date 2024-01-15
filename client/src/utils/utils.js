@@ -1,0 +1,1 @@
+export const isSerser = typeof window === 'undefined';

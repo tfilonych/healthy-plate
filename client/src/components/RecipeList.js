@@ -1,57 +1,41 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import defaultImage from '../images/default-image.jpg';
-import fetchData from '../utils/fetchHandler';
-
-let resource;
 
 const RecipeList = ({ query }) => {
-  const controller = new AbortController();
-  if (!resource) {
-    resource = fetchData('/api/recipe/all', {
-      signal: controller.signal
-    });
-  }
-  const recipes = resource.read().data;
+  const recipes = useSelector(state => state.recipes.recipes);
   const filteredRecipes = recipes.filter(recipe => {
     return recipe.title.toLowerCase().includes(query.toLowerCase());
   });
 
-  useEffect(() => {
-    return () => {
-      resource = null;
-      controller.abort();
-    }
-
-  }, []);
-
   const handleImageError = (e) => {
     e.target.src = defaultImage;
-  }
+  };
 
   return (
     <>
       {filteredRecipes.map(recipe => {
         return (
-          <Link className="recipe flip-container" key={recipe._id} to={`/recipes/${recipe._id}`}>
-            <div className="txt-container">
-              <div className="title">{recipe.title}</div>
+          <Link className='recipe flip-container' key={recipe._id} to={`/recipes/${recipe._id}`}>
+            <div className='txt-container'>
+              <div className='title'>{recipe.title}</div>
               &#9918;
-              <div className="cook-item">15m</div>
+              <div className='cook-item'>15m</div>
             </div>
-            <div className="image-container">
+            <div className='image-container'>
               <img
                 src={recipe.image ? recipe.image : defaultImage}
                 onError={handleImageError}
                 alt={recipe.title}
-                loading="lazy"
+                loading='lazy'
               />
             </div>
           </Link>
         );
       })}
     </>
-  )
-}
+  );
+};
 
 export default RecipeList;
