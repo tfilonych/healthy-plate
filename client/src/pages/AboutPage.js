@@ -28,7 +28,7 @@ const AboutPage = () => {
         </p>
       </section>
     </article>
-  )
-}
+  );
+};
 
 export default AboutPage;

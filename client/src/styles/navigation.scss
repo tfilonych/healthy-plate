@@ -1,17 +1,21 @@
 .navigation {
+  height: auto;
+
   .nav {
     display: flex;
-    height: 5.7rem;
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
     position: relative;
+    gap: 3rem;
+    padding: 2rem;
 
     a {
-      padding-right: 7.1rem;
-      //color: #424242;
-      font-size: 1.4rem;
+      font-family: $font-family-primary;
+      font-size: 1.6rem;
+      font-weight: 900;
       text-decoration: none;
+      color: $primary-color-dark;
 
       &:hover {
         color: $brand-color;
@@ -21,7 +25,7 @@
     &:before {
       content: "";
       position: absolute;
-      border: 1px solid #e0e0e0;
+      border: 1px solid $primary-color-light;
       top: 0;
       left: 50%;
       width: 80%;
@@ -31,20 +35,20 @@
   }
 
   @media screen and (max-width: 600px) {
+    height: 0;
+
     .nav {
       flex-direction: column;
-      order: 2;
-      height: auto;
-      position: absolute;
       width: 100%;
-      top: 0;
-      margin-top: 62px;
-      left: 0;
       transform: translateX(-200px);
       transition: all 0.5s ease-in-out;
       opacity: 0;
       pointer-events: auto;
       z-index: -1;
+      gap: 0;
+      padding: 0;
+      background: #36455ae3;
+      color: white;
 
       &:before {
         content: "";
@@ -80,7 +84,7 @@
       width: 1.5rem;
       cursor: pointer;
       position: absolute;
-      top: 1rem;
+      top: .5rem;
       left: 1rem;
       pointer-events: auto;
     }
@@ -88,7 +92,7 @@
     .nav-icon:after,
     .nav-icon:before,
     .nav-icon div {
-      background-color: $primary-color-dark;
+      background-color: $primary-color-light;
       border-radius: $border-radius;
       content: "";
       display: block;
@@ -104,18 +108,23 @@
         transition: all 0.5s ease-in-out;
         z-index: 1;
       }
+
       .nav-icon {
         cursor: pointer;
       }
+
       .nav-icon, .logo-sm {
         pointer-events: none;
       }
+
       .nav-icon:before {
         transform: translateY(0.6rem) rotate(135deg);
       }
+
       .nav-icon:after {
         transform: translateY(-0.6rem) rotate(-135deg);
       }
+
       .nav-icon div {
         transform: scale(0);
       }

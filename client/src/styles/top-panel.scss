@@ -1,19 +1,20 @@
 .top-panel {
-  //background: $primary-color-dark;
-  height: 4.3rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  background: $brand-color-dark;
+  padding: 0.8rem 2rem;
 
   .login-btn {
     @extend %button;
-    margin: 2rem;
     align-self: center;
     border: 1px solid;
     transition: all .5s ease;
+    color: $primary-color-light;
+    background: $brand-color-dark;
 
     &:hover {
-      color: $brand-color;
+      background: lighten($brand-color-dark, 10%);
       transition: all .5s ease;
     }
 
@@ -37,14 +38,16 @@
       &:checked + .slider {
         background-color: transparent;
         border: 1px solid;
+        color: white;
 
         &:before {
           transform: translateX(1.8rem);
-          background: white;
+          background-color: white;
         }
       }
     }
   }
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -54,6 +57,7 @@
     bottom: 0;
     transition: .4s;
     border: 1px solid;
+    color: white;
 
     &:before {
       position: absolute;
@@ -62,14 +66,13 @@
       width: 1.8rem;
       left: .2rem;
       bottom: .2rem;
-      background-color: black;
+      background-color: white;
       -webkit-transition: .4s;
       transition: .4s;
     }
 
   }
 
-  /* Rounded sliders */
   .slider.round {
     border-radius: 2.4rem;
   }

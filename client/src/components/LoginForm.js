@@ -1,57 +1,58 @@
 import React, { useEffect, useRef, forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 
-const LoginForm = ({ loginHandler, error=null }, formRef) => {
+const LoginForm = ({ loginHandler, error = null }, formRef) => {
   const emailRef = useRef(null);
 
   useEffect(() => {
-    emailRef.current.focus();
+    // emailRef.current.focus();
   }, []);
 
   return (
-    <form id="loginForm"
-          className="form-container"
+    <form id='loginForm'
+          className='form-container'
           onSubmit={(e) => loginHandler(e)}
           ref={formRef}
     >
-      <div className="form-title">Sign In</div>
-      <div className="login">
+      <div className='form-title'>Sign In</div>
+      <div className='login'>
         <input
-          placeholder="Enter login"
-          type="email"
-          className="validate"
+          placeholder='Enter login'
+          type='email'
+          className='validate'
           required={true}
-          name="email"
+          name='email'
           ref={emailRef}
         />
-        <div className="error-container">
-          <span className="error">Please enter a valid email</span>
+        <div className='error-container'>
+          <span className='error'>Please enter a valid email</span>
         </div>
       </div>
-      <div className="password">
+      <div className='password'>
         <input
-          placeholder="Enter password"
-          type="password"
-          required={true}
-          className="validate"
-          name="password"
-          minLength="6"
+          placeholder='Enter password'
+          type='password'
+          required
+          className='validate'
+          name='password'
+          minLength='6'
         />
-        <div className="error-container">
-          <span className="error">Password should have at least 8 characters</span>
+        <div className='error-container'>
+          <span className='error'>Password should have at least 8 characters</span>
         </div>
       </div>
-      <div className="button-container">
-        {error && <div className="error-container server-error">
-          <div className="error">{error}</div>
+      <div className='button-container'>
+        {error && <div className='error-container server-error'>
+          <div className='error'>{error}</div>
         </div>}
         <button
-          role="submit"
-          className="button sign-in"
-        >Sign-In</button>
-        <div className="sign-up-link">
+          role='submit'
+          className='button sign-in'
+        >Sign-In
+        </button>
+        <div className='sign-up-link'>
           <span>New user?</span>
-          <Link to="/sign-up">Sign Up here</Link>
+          <Link to='/sign-up'>Sign Up here</Link>
         </div>
       </div>
     </form>

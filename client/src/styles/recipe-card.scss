@@ -3,19 +3,18 @@
   &.new {
     .recipe-info {
       align-items: flex-start;
+      flex-direction: column;
 
       .image-container {
         margin-right: 2rem;
         overflow: hidden;
 
         @media screen and (max-width: 600px) {
-          order: 1;
           width: 100%;
         }
       }
 
       .recipe-title {
-        order: 2;
         margin: 2rem 0;
       }
     }

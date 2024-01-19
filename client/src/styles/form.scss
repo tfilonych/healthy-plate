@@ -1,4 +1,5 @@
 .form-container {
+  font-family: $font-family-primary;
   display: flex;
   padding: 1.43rem 3.57rem;
   width: 35.7rem;
@@ -7,7 +8,6 @@
   margin: 3.57rem auto;
   align-items: center;
   border-radius: $border-radius;
-  border: 1px solid $secondary-color;
   font-size: 1.7rem;
 
 
@@ -51,22 +51,23 @@
       border: 1px solid;
       cursor: pointer;
       font-size: 1.2rem;
-      //background: $primary-color-dark;
-      //color: $primary-color-light;
       transition: all ease-in-out .3s;
+      background: $brand-color-dark;
+      color: $primary-color-light;
     }
+
     .button:hover, [disabled] {
-      //background: $hover-dark;
-      color: $brand-color;
-      border-color: $brand-color;
+      background: lighten($brand-color-dark, 10%);
       transition: all ease-in-out .3s;
     }
   }
 }
+
 form:invalid .sign-in {
   opacity: 0.3;
   pointer-events: none;
 }
+
 .error-container {
   display: none;
   width: 100%;
@@ -84,13 +85,14 @@ form:invalid .sign-in {
   }
 }
 
-form > div > input:invalid:not(:focus):not(:placeholder-shown) ~ .error-container, .error-container.server-error
-{
+form > div > input:invalid:not(:focus):not(:placeholder-shown) ~ .error-container, .error-container.server-error {
   display: block;
 }
+
 .auth-container-btn {
   display: flex;
 }
+
 .sign-up-link {
   display: flex;
   font-size: 1rem;

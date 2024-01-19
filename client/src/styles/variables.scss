@@ -1,13 +1,28 @@
-//@font-face {
-//  font-family: 'inter';
-//  render: url('../fonts/Inter-Medium.ttf') format('truetype'),
-//  font-weight: normal;
-//  font-style: normal;
-//}
+@font-face {
+  font-family: "Salsa";
+  src: url("./fonts/Salsa-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Kalam-Light";
+  src: url("./fonts/Kalam-Light.ttf");
+}
+
+@font-face {
+  font-family: "Kalam-Regular";
+  src: url("./fonts/Kalam-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Kalam-Bold";
+  src: url("./fonts/Kalam-Bold.ttf");
+}
+
 $primary-color-light: white;
 $primary-color-dark: black;
 $secondary-color: #e0e0e0;
 $brand-color: burlywood;
+$brand-color-dark: #36455a;
 $font-size: 14px;
 
 $border-radius: 0.28rem;
@@ -16,10 +31,6 @@ $hover-dark: #555;
 
 $form-padding: 0.71rem;
 
-//@font-face {
-//  font-family: "inter";
-//  render: url("/client/render/styles/fonts/Inter-Medium.ttf"),
-//    url("/client/render/styles/fonts/Inter-Medium.ttf") format("truetype");
-//  font-weight: normal;
-//  font-style: normal;
-//}
+$font-family-primary: "Kalam-Regular";
+$font-family-secondary: "Kalam-Light";
+$font-family-buttons: "Salsa";

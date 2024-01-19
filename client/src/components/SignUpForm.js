@@ -1,47 +1,38 @@
 import React, { forwardRef } from 'react';
 
-const SignUpForm = ({ signUpHandler, confirmHandler }, forwardRef) => {
+const SignUpForm = ({ signUpHandler, confirmHandler }, formRef) => {
 
   return (
-    <form id="sign-up" action={signUpHandler} role="form" ref={forwardRef}>
-      <div className="input-group">
-        <label htmlFor="firstname">Firstname</label>
-        <input type="text" name="firstname" id="firstname"/>
+    <form id='sign-up' onSubmit={(e) => signUpHandler(e)} role='form' ref={formRef}>
+      <div className='input-group'>
+        <input type='text'
+               placeholder='Enter username'
+               name='userName'
+               minLength='6'
+               required
+        />
+        <span className='tooltip'>
+          Username has to be 6 symbol length
+        </span>
       </div>
-      <div className="input-group">
-        <label htmlFor="lastname">Lastname</label>
-        <input type="text" name="lastname" id="lastname"/>
+      <div className='input-group'>
+        {/*<label htmlFor='email'>Email</label>*/}
+        <input name='email' type='email' id='email' placeholder='Enter email' />
       </div>
-      <div className="input-group">
-        <label htmlFor="country">Country</label>
-        <input type="text" name="country" id="country"/>
-      </div>
-      <div className="input-group">
-        <label htmlFor="city">City</label>
-        <input type="text" name="city" id="city"/>
-      </div>
-      <div className="input-group">
-        <label htmlFor="email">Email</label>
-        <input name="email" type="email" id="email"/>
-      </div>
-      <div className="input-group">
-        <label htmlFor="password">Password</label>
-        <input name="password" type="password" id="password"/>
-        <span className="tooltip">
+      <div className='input-group'>
+        {/*<label htmlFor='password'>Password</label>*/}
+        <input name='password' type='password' id='password' placeholder='Enter password' required />
+        <span className='tooltip'>
           Password has to be 6 symbol length
         </span>
       </div>
-      <div className="input-group">
-        <label htmlFor="confirm">Confirm Password</label>
-        <input type="password" id="confirm" onBlur={confirmHandler}/>
+      <div className='input-group'>
+        {/*<label htmlFor='confirm'>Confirm Password</label>*/}
+        <input type='password' id='confirm' placeholder='Confirm password' onBlur={confirmHandler} />
       </div>
-      <div className="input-group">
-        <label htmlFor="password">Phone</label>
-        <input name="phone" type="number" id="phone"/>
-      </div>
-      <input type="submit" role="button" className="button"/>
+      <button role='submit' className='button'>Sign Up</button>
     </form>
-  )
-}
+  );
+};
 
 export default forwardRef(SignUpForm);

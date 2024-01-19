@@ -36,8 +36,7 @@ const RecipeList = ({ query }) => {
           <Link className="recipe flip-container" key={recipe._id} to={`/recipes/${recipe._id}`}>
             <div className="txt-container">
               <div className="title">{recipe.title}</div>
-              &#9918;
-              <div className="cook-item">15m</div>
+              {/*<div className="cook-item">15m</div>*/}
             </div>
             <div className="image-container">
               <img

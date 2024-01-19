@@ -1,62 +1,151 @@
-.home-page-container {
-  position: relative;
-  max-width: $max-width;
-  margin: 0 auto;
+.home-page {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 
-  .home-page {
-    /*width: 100vw;*/
-    /*position: absolute;*/
-    display: flex;
-    height: 35.7rem;
-    /*justify-content: space-around;*/
+  .text {
+    font-size: 1.2rem;
+    padding: 2rem 0;
+    font-family: $font-family-secondary;
 
-    .item {
-      height: 35.7rem;
-      border-radius: $border-radius;
-      /*width: calc(100%/3 - 20px);*/
+    span {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: $brand-color;
+    }
+  }
+
+  .carousel {
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+    height: 30rem;
+    width: 100%;
+
+    .carousel-inner {
+      display: flex;
+      transition: opacity 0.5s ease;
       position: relative;
 
-      &:before {
-        background: rgba(0, 0, 0, 0.3);
-        content: "";
+      .carousel-item {
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
-        width: 100%;
-        border-radius: $border-radius;
+        flex: 0 0 100%;
+        opacity: 0;
+        transition: opacity .5s ease-in-out;
+
+        &.visible {
+          opacity: 1;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
-    .blw {
-      background: url("../images/background-8.jpg") center center no-repeat;
-      background-size: cover;
-      flex: 1 0 20%;
-      margin-right: 1.43rem;
+
+    button {
+      background: #00000033;
+      border: none;
+      border-radius: $border-radius;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.14rem;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 4rem;
+      opacity: 0;
+      transition: opacity .5s ease-in-out;
+
+      &:before {
+        content: "";
+        border: solid white;
+        border-width: 0 .286rem .286rem 0;
+        display: inline-block;
+        padding: .36rem;
+      }
+
+      &.left {
+        left: 0;
+
+        &:before {
+          transform: rotate(135deg);
+        }
+      }
+
+      &.right {
+        right: 0;
+
+        &:before {
+          transform: rotate(-45deg);
+        }
+      }
     }
-    .pure {
-      background: url("../images/background-9.jpg") center center no-repeat;
-      background-size: cover;
-      flex: 1 0 60%;
+
+    &:hover {
+      button {
+        opacity: 1;
+
+      }
     }
-    .prediatric {
-      background: url("../images/background-10.jpg") center center no-repeat;
-      background-size: cover;
-      flex: 1 0 20%;
-      margin-left: 1.43rem;
+
+    @media screen and (max-width: 600px) {
+      height: 20rem;
+
+      button {
+        width: 2.5rem;
+      }
     }
   }
-}
 
-//.header {
-//  color: white;
-//  position: relative;
-//  height: 60px;
-//  /*background: rgba(0, 0, 0, .3);*/
-//  background: rgba(140, 169, 174, .4);
-//  display: flex;
-//  align-items: center;
-//  padding-left: 20px;
-//}
-//.carousel {
-//  background: url("images/carousel.jpg");
-//}
+  .item {
+    height: 35.7rem;
+    border-radius: $border-radius;
+    position: relative;
+
+    &:before {
+      background: rgba(0, 0, 0, 0.3);
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      border-radius: $border-radius;
+    }
+  }
+
+  article {
+    .divider {
+      margin: 2rem auto;
+    }
+
+
+    section {
+      display: flex;
+      gap: 4rem;
+
+      .image-container {
+        flex: 0 0 60%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    section {
+      flex-direction: column;
+
+      .text-container {
+        order: 1;
+      }
+
+      .image-container {
+        order: 2;
+      }
+    }
+  }
+
+}
