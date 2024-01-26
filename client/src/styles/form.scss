@@ -1,15 +1,57 @@
-.form-container {
+form {
   font-family: $font-family-primary;
   display: flex;
   padding: 1.43rem 3.57rem;
-  width: 35.7rem;
   height: auto;
   flex-direction: column;
   margin: 3.57rem auto;
-  align-items: center;
   border-radius: $border-radius;
   font-size: 1.7rem;
+  width: 26rem;
 
+  .form-title {
+    text-align: center;
+  }
+
+  .input-group {
+    margin-top: 1.43rem;
+    display: flex;
+    font-size: 1.2rem;
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    align-items: baseline;
+
+    input {
+      border-radius: 0.28rem;
+      border: 1px solid #e0e0e0;
+      padding: $form-padding;
+
+      &:focus > {
+        display: block;
+      }
+    }
+  }
+
+  .button {
+    @extend %button;
+    border-radius: $border-radius;
+    cursor: pointer;
+    margin-top: 1.43rem;
+    padding: 1rem;
+    background: $brand-color-dark;
+    color: $primary-color-light;
+    width: 100%;
+    transition: all .5s ease-in-out;
+
+    &:hover {
+      background: lighten($brand-color-dark, 10%);
+    }
+
+    &:disabled {
+      pointer-events: none;
+    }
+  }
 
   .error {
     @extend %error;
@@ -21,86 +63,43 @@
     padding: 0.5rem 1.5rem;
     border: none;
   }
-
-  .login,
-  .password {
-    margin-top: 1.43rem;
-    width: 35.7rem;
-    border-radius: 0.28rem;
-    border: 1px solid #e0e0e0;
-
-    input {
-      padding: 0.71rem;
-    }
-
-    @media screen and (max-width: 600px) {
-      width: 100%;
-    }
-  }
-
-  .button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1.43rem;
-    width: 100%;
-
-    .button {
-      @extend %button;
-      margin-right: 0.71rem;
-      border: 1px solid;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: all ease-in-out .3s;
-      background: $brand-color-dark;
-      color: $primary-color-light;
-    }
-
-    .button:hover, [disabled] {
-      background: lighten($brand-color-dark, 10%);
-      transition: all ease-in-out .3s;
-    }
-  }
 }
 
-form:invalid .sign-in {
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.error-container {
-  display: none;
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.43rem;
   width: 100%;
-  justify-content: center;
-  align-items: center;
-  border-radius: $border-radius;
-  background: #FCE4EC;
 
-  &.server-error {
-    margin-bottom: 1rem;
+  .button {
+    @extend %button;
+    margin: 0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all ease-in-out .3s;
+    background: $brand-color-dark;
+    color: $primary-color-light;
+
   }
 
-  .error {
-    display: block;
+  .sign-up-link {
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+
+    a {
+      color: $brand-color;
+      text-decoration: underline;
+      margin: 0 .5rem;
+    }
   }
 }
 
-form > div > input:invalid:not(:focus):not(:placeholder-shown) ~ .error-container, .error-container.server-error {
-  display: block;
-}
-
-.auth-container-btn {
-  display: flex;
-}
-
-.sign-up-link {
-  display: flex;
-  font-size: 1rem;
-  align-items: center;
-
-  a {
-    color: $brand-color;
-    text-decoration: underline;
-    margin: 0 .5rem;
-  }
+form .input-group.invalid ~ .button,
+form .input-group.invalid ~ .form-footer .button,
+form .input-group:has(input:invalid) ~ .button,
+form .input-group:has(input:invalid) ~ .form-footer .button {
+  pointer-events: none;
+  background: lighten($brand-color-dark, 10%);
 }

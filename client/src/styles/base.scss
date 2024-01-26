@@ -1,33 +1,34 @@
-//@font-face {
-//  font-family: "Salsa";
-//  src: url("./fonts/Salsa-Regular.ttf");
-//}
-//
-//@font-face {
-//  font-family: "Kalam-Light";
-//  src: url("./fonts/Kalam-Light.ttf");
-//}
-//
-//@font-face {
-//  font-family: "Kalam-Regular";
-//  src: url("./fonts/Kalam-Regular.ttf");
-//}
-//
-//@font-face {
-//  font-family: "Kalam-Bold";
-//  src: url("./fonts/Kalam-Bold.ttf");
-//}
-
 * {
   margin: 0;
 }
 
-html {
+html, body {
   font-size: 14px;
+  height: 100%;
   //font-family: "Salsa", sans-serif;
 
   @media screen and (max-width: 600px) {
     font-size: 10px;
+  }
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  main {
+    flex-grow: 1;
+  }
+
+  footer {
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 }
 
@@ -40,13 +41,14 @@ img {
 a {
   text-decoration: none;
   background: transparent;
-  font-family: "kalam", sans-serif;
+  font-family: $font-family-primary;
 }
 
 .hp-content {
   font-family: $font-family-secondary;
   margin: 2rem;
   max-width: $max-width;
+  min-height: 100%;
 
   @media screen and (min-width: 1201px) {
     margin: 0 auto;
@@ -65,7 +67,8 @@ a {
   background: $brand-color-dark;
   color: $primary-color-light;
 
-  &:hover {
+  &:focus-visible {
+    outline: none;
   }
 
   &:active {
@@ -88,7 +91,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border: none;
+  //border: none;
   font-family: $font-family-primary;
   //-webkit-text-fill-color: black;
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
@@ -120,6 +123,7 @@ input {
   width: 100%;
   font-size: 1.2rem;
   background: transparent;
+  box-sizing: border-box;
 
   &::placeholder {
     background: transparent;
@@ -134,35 +138,5 @@ input {
 %error {
   color: red;
   font-size: .8rem;
-  padding: $form-padding;
-}
-
-.divider {
-  //--b: .07rem;
-  //--w: 12.86rem;
-  //--g: 1.07rem;
-  //--c: $brand-color-dark;
-  background: no-repeat 0 100%;
-  border: 1px solid;
-  border-image: linear-gradient(#0000 calc(50% - .07rem / 2), $brand-color-dark 0 calc(50% + .07rem / 2), #0000 0) 1/0 12.86rem/calc(12.86rem + 1.07rem);
-  color: #fff;
-  line-height: 1.6rem;
-  padding: 0 1rem;
-  width: -moz-fit-content;
-  width: fit-content;
-  align-self: center;
-  margin: 2rem auto;
-
-  span {
-    color: black;
-    font-size: 1.2rem;
-
-    &:first-child {
-      font-family: $font-family-primary;
-    }
-
-    &:last-child {
-      font-family: $font-family-secondary;
-    }
-  }
+  padding: 0.2rem 0.71rem;
 }

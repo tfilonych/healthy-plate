@@ -1,12 +1,21 @@
-import { createContext } from 'react';
+import React, { createContext } from 'react';
+import useAuth from '../hooks/auth.hook';
 
-function noop() {}
+export const AuthContext = createContext();
 
-const AuthContext = createContext({
-  token: null,
-  login: noop,
-  logout: noop,
-  isAuthenticated: false,
-});
+const AuthContextProvider = ({ children }) => {
+  const { login, logout, register, isAuthenticated } = useAuth();
+  const contextValue = {
+    login,
+    logout,
+    register,
+    isAuthenticated
+  };
+  return (
+    <AuthContext.Provider value={contextValue}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-export default AuthContext;
+export default AuthContextProvider;

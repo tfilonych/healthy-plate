@@ -1,28 +1,67 @@
-import React, {useContext, useRef} from 'react';
-import {useNavigate} from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
-import AuthContext from '../context/AuthContext';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Form from '../components/ui/Form';
+import Input from '../components/ui/Input';
+import useAuthContext from '../hooks/useAuthContext';
+import withValidation from '../validation/withValidationHOC';
+import validation from '../validation/validationErrors';
 
+const InputWithValidation = withValidation(Input, validation);
 const LoginPage = () => {
-  const formRef = useRef(null);
   const navigate = useNavigate();
-  const {login} = useContext(AuthContext);
+  const { login } = useAuthContext();
+  const [serverError, setServerError] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
 
-  const loginHandler = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(formRef.current)
-    const user = Object.fromEntries(formData);
-    login(user);
-    formRef.current.reset()
-    navigate('/recipes')
-  }
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await login(formData);
+      navigate('/recipes');
+    } catch (e) {
+      setServerError(e);
+    }
+  };
 
   return (
-    <LoginForm
-      loginHandler={loginHandler}
-      ref={formRef}
-    />
-  )
+    <Form
+      id='loginForm'
+      setFormData={setFormData}
+      formData={formData}
+      submitHandler={submitHandler}
+    >
+      <div className='form-title'>Sign In</div>
+      <InputWithValidation
+        placeholder='Enter email'
+        type='email'
+        name='email'
+        value={formData.email}
+        required
+      />
+      <InputWithValidation
+        placeholder='Enter password'
+        type='password'
+        name='password'
+        required
+        value={formData.password}
+      />
+      <div className='error'>{serverError}</div>
+      <div className='form-footer'>
+        <button
+          role='submit'
+          className='button sign-in'
+        >Sign-In
+        </button>
+        <div className='sign-up-link'>
+          <span>New user?</span>
+          <Link to='/sign-up'>Sign Up here</Link>
+        </div>
+      </div>
+    </Form>
+  );
 
 };
 export default LoginPage;

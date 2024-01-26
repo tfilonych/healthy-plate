@@ -1,0 +1,28 @@
+.divider {
+  background: no-repeat 0 100%;
+  border: 1px solid;
+  border-image: linear-gradient(
+    #0000 calc(50% - .07rem / 2),
+    $brand-color-dark 0 calc(50% + .07rem / 2),
+    #0000 0) 1/0 12.86rem/calc(12.86rem + 1.07rem);
+  color: #fff;
+  line-height: 1.6rem;
+  padding: 0 1rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  align-self: center;
+  margin: 2rem auto;
+
+  span {
+    color: black;
+    font-size: 1.2rem;
+
+    &:first-child {
+      font-family: $font-family-primary;
+    }
+
+    &:last-child {
+      font-family: $font-family-secondary;
+    }
+  }
+}

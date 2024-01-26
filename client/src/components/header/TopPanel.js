@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from '../../context/AuthContext';
 import Logo from './Logo';
+import useAuthContext from '../../hooks/useAuthContext';
 
 const TopPanel = () => {
-  const { logout, isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useAuthContext();
 
   return (
     <div className='top-panel'>

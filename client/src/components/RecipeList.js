@@ -16,41 +16,40 @@ const RecipeList = ({ query }) => {
   const filteredRecipes = recipes.filter(recipe => {
     return recipe.title.toLowerCase().includes(query.toLowerCase());
   });
-
   useEffect(() => {
     return () => {
       resource = null;
       controller.abort();
-    }
+    };
 
   }, []);
 
   const handleImageError = (e) => {
     e.target.src = defaultImage;
-  }
+  };
 
   return (
     <>
       {filteredRecipes.map(recipe => {
         return (
-          <Link className="recipe flip-container" key={recipe._id} to={`/recipes/${recipe._id}`}>
-            <div className="txt-container">
-              <div className="title">{recipe.title}</div>
+          <Link className='recipe flip-container' key={recipe._id} to={`/recipes/${recipe._id}`}>
+            <div className='txt-container'>
+              <div className='title'>{recipe.title}</div>
               {/*<div className="cook-item">15m</div>*/}
             </div>
-            <div className="image-container">
+            <div className='image-container'>
               <img
                 src={recipe.image ? recipe.image : defaultImage}
                 onError={handleImageError}
                 alt={recipe.title}
-                loading="lazy"
+                loading='lazy'
               />
             </div>
           </Link>
         );
       })}
     </>
-  )
-}
+  );
+};
 
 export default RecipeList;

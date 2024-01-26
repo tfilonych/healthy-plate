@@ -1,9 +1,14 @@
 footer {
   font-family: $font-family-secondary;
-  display: flex;
+  //display: flex;
   height: 5.7rem;
-  margin-top: 7.1rem;
   padding: 3.57rem;
   background: #36465a;
   color: white;
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
 }

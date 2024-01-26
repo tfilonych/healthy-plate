@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from '../components/Carousel';
-import Divider from '../components/Divider';
+import Divider from '../components/ui/Divider';
 
 const HomePage = () => {
   return (
