@@ -1,55 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Ingredients = ({
-  handleRemove,
-  ingredients=[],
-  handleAdd
-}) => {
-  const [ingredient, setIngredient] = useState('');
+const Ingredients = ({ ingredients, children }) => {
+  // const [ingredient, setIngredient] = useState('');
 
-  const changeHandler = (e) => {
-    setIngredient(e.target.value);
-  };
-
-  const onKeyPress = (e) => {
-    if (e.key && (e.key === 'Enter')) {
-      addToArray();
-    }
-  }
-
-  const addToArray = () => {
-    handleAdd(ingredient);
-    setIngredient('');
-  }
+  // const changeHandler = (e) => {
+  //   setIngredient(e.target.value);
+  // };
+  //
+  // const onKeyPress = (e) => {
+  //   if (e.key && (e.key === 'Enter')) {
+  //     addToArray();
+  //   }
+  // }
+  //
+  // const addToArray = () => {
+  //   handleAdd(ingredient);
+  //   setIngredient('');
+  // }
 
   return (
-    <div className="ingredients">
-      <div className="ingredients-title">Ingredients:</div>
-        <div className="item">
-          <div className="ingredient-input">
-            <input
-              className=""
-              placeholder="Add ingredient"
-              id="ingredient"
-              type="text"
-              name="ingredient"
-              value={ingredient}
-              onChange={changeHandler}
-              onKeyPress={onKeyPress}
-            />
-          </div>
-          <div className="add-new-btn" onClick={addToArray}>Add</div>
-        </div>
-      {ingredients.length > 0 && <div className="ingredient-list">
+    <div className='ingredients'>
+      <div className='ingredients-title'>Ingredients:</div>
+      {children}
+      {ingredients && <div className='ingredient-list'>
         {ingredients.map((item, i) => (
-          <div className="ingredient" key={i}>
-            <div className="minus" onClick={() => handleRemove(item)} />
+          <div className='ingredient tick' key={i}>
             <div>{item}</div>
           </div>
         ))}
       </div>}
     </div>
-  )
-}
+  );
+};
 
 export default Ingredients;

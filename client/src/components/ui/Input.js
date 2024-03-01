@@ -8,7 +8,7 @@ const Input =
      placeholder,
      className,
      name,
-     error,
+     error = null,
      ...rest
    }) => (
     <div className={`input-group ${className}`}>
@@ -20,7 +20,7 @@ const Input =
         onBlur={onBlurHandler}
         {...rest}
       />
-      {error[name] && <span className='error'>{error[name]}</span>}
+      {error && error[name] && <span className='error'>{error[name]}</span>}
     </div>
   );
 

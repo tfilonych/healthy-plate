@@ -9,6 +9,8 @@ import CreateRecipePage from './pages/CreateRecipePage';
 import Layout from './pages/Layout';
 import LoginPage from './pages/LoginPage';
 import AuthContextProvider from './context/AuthContext';
+import NotFoundPage from './pages/NotFoundPage';
+import PrivateRoute from './pages/PrivateRoute';
 
 const App = () => {
   return (
@@ -21,7 +23,12 @@ const App = () => {
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/recipes' element={<RecipesPage />} />
           <Route path='/recipes/:id' element={<RecipePage />} />
-          <Route path='/create-recipe' element={<CreateRecipePage />} />
+          <Route path='/recipes/new' element={
+            <PrivateRoute>
+              <CreateRecipePage />
+            </PrivateRoute>
+          } />
+          <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>
     </AuthContextProvider>

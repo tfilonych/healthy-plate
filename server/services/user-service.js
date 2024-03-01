@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 // import uuid from 'uuid';
 import UserModel from './../models/User';
 import UserDto from '../dtos/user-dto';

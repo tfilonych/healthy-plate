@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import fetchData from '../utils/fetchHandler';
+import { transformDate } from '../utils/utils';
+import Divider from './ui/Divider';
+import Ingredients from './recipeCard/Ingredients';
+import Info from './recipeCard/Info';
+import Procedures from './recipeCard/Procedures';
+import CardImage from './recipeCard/CardImage';
 
 let resource;
 
@@ -18,32 +24,31 @@ const Recipe = () => {
   }, []);
 
   return (
-    <div className='recipe-card new'>
-      <div className='recipe-info'>
-        <div className='recipe-title'>{recipe.title}</div>
-        <div className='image-container'>
-          {recipe.image && <img src={recipe.image} />}
-        </div>
-      </div>
-      <div className='desc-container'>
-        <div className='ingredients'>
-          <div className='ingredients-title'>Ingredients:</div>
-          {recipe.ingredients && <div className='ingredient-list'>
-            {recipe.ingredients.map((item, i) => (
-              <div className='ingredient tick' key={i}>
-                <div>{item}</div>
-              </div>
-            ))}
-          </div>}
-        </div>
-        <div className='procedures'>
-          <div className='title'>Procedures:</div>
-          <div className='item'>
-            {recipe.procedures}
+    <article className='recipe-card'>
+      <div className='horizontal-container'>
+        <Info className={'align-center'}>
+          <h2 className='recipe-title'>{recipe.title}</h2>
+          <div className='author'>By Username</div>
+          <div className='time-added'>{transformDate(recipe.date)}</div>
+          <div className='time-cooking'>Total Time: 1 hour 15minutes</div>
+          <div className='rating'>
+            <img src='/../public/images/stars/icons8-star-48.png' />
+            <img src='/../public/images/stars/icons8-star-48.png' />
+            <img src='/../public/images/stars/icons8-star-48.png' />
+            <img src='/../public/images/stars/icons8-star-48.png' />
+            <img src='/../public/images/stars/icons8-star-48.png' />
           </div>
-        </div>
+        </Info>
+        <CardImage>{recipe.image && <img src={recipe.image} />}</CardImage>
       </div>
-    </div>
+
+      <Divider />
+      <Ingredients ingredients={recipe.ingredients} />
+      <Divider />
+      <Procedures>
+        {recipe.procedures}
+      </Procedures>
+    </article>
   );
 };
 

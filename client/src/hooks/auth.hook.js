@@ -8,21 +8,33 @@ const useAuth = () => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthStatus] = useState(false);
 
-  useEffect(async () => {
-    if (localStorage.getItem(config.storageName)) {
-      await checkAuth();
-    }
+  useEffect(() => {
+    const initializeAuth = async () => {
+      if (localStorage.getItem(config.storageName)) {
+        await checkAuth();
+      }
+    };
+
+    initializeAuth();
   }, []);
 
+  const handleAuthentication = async (response, action) => {
+    localStorage.setItem(config.storageName, response.data.accessToken);
+    setAuthStatus(true);
+    setUser(response.data.user);
+    action && action();
+  };
+
+  const handleApiError = (e) => {
+    throw e.response?.data?.message;
+  };
+
   const login = async (user) => {
-    // eslint-disable-next-line no-useless-catch
     try {
       const response = await $api.post('/api/auth/login', { ...user });
-      localStorage.setItem(config.storageName, response.data.accessToken);
-      setAuthStatus(true);
-      setUser(response.data.user);
+      await handleAuthentication(response);
     } catch (e) {
-      throw(e.response?.data?.message);
+      handleApiError(e);
     }
   };
 
@@ -37,20 +49,17 @@ const useAuth = () => {
         `/api/auth/refresh`,
         { withCredentials: true }
       );
-      localStorage.setItem(config.storageName, response.data.accessToken);
-      setAuthStatus(true);
-      setUser(response.data.user);
+      await handleAuthentication(response);
     } catch (e) {
-      throw(e.response?.data?.message);
+      handleApiError(e);
     }
   };
 
   const register = async (user) => {
-    // eslint-disable-next-line no-useless-catch
     try {
       await $api.post('/api/auth/register', { ...user });
     } catch (e) {
-      throw(e.response?.data?.message);
+      handleApiError(e);
     }
   };
 
