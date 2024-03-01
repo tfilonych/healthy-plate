@@ -8,7 +8,7 @@ RUN npm install -g concurrently
 RUN npm install -g sass
 RUN npm install -g node-sass
 RUN npm cache clean -f
-RUN npm install
+RUN yarn install
 
 COPY ./client ./client
 COPY ./config ./config
