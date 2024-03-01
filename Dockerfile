@@ -6,8 +6,8 @@ COPY package*.json .
 RUN npm install -g nodemon
 RUN npm install -g concurrently
 RUN npm install -g sass
-RUN npm install -g node-sass
 RUN npm cache clean -f
+RUN yarn cache clean
 RUN yarn install
 
 COPY ./client ./client
