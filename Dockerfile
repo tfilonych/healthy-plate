@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json .
 
 RUN npm install -g nodemon
-RUN npm install react-scripts
+RUN npm install react-scripts -g
 RUN npm install -g concurrently
 RUN npm install -g sass
 RUN npm cache clean -f
@@ -13,7 +13,7 @@ RUN npm install
 COPY ./client ./client
 COPY ./config ./config
 COPY ./images ./images
-COPY ./render ./render
+COPY ./render ./rendervim
 COPY ./server ./server
 COPY ./bootstrap.js .
 COPY ./bootstrappedFiles.js .
