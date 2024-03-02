@@ -2,7 +2,7 @@ version: '1'
 
 services:
   web:
-    image: 'healthy-plate:dev'
+    image: 'tfilonych/healthy-plate:dev'
     #    build:
     #      context: .
     #      dockerfile: Dockerfile
