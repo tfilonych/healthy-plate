@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json .
 
 RUN npm install -g nodemon
+RUN npm install react-scripts
 RUN npm install -g concurrently
 RUN npm install -g sass
 RUN npm cache clean -f
