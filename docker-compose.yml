@@ -2,9 +2,10 @@ version: '1'
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: 'healthy-plate:dev'
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
     ports:
       - "3009:3009"
     volumes:
