@@ -16,7 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "compile-sass": "node-sass --output-style compressed -w -o ./client/public ./client/src/styles"
+    "compile-sass": "sass --output-style compressed -w -o ./client/public ./client/src/styles"
   },
   "browserslist": {
     "production": [
