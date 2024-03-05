@@ -27,4 +27,4 @@ git checkout docker-init
 # Pull docker-compose
 echo "Pull docker-compose and run"
 sudo docker pull tfilonych/healthy-plate:dev
-docker-compose up
+sudo docker-compose up
