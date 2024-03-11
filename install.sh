@@ -1,22 +1,22 @@
 #!/bin/bash
 
-# Enable logs
-exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+# Ensure execution permissions
+chmod +x install.sh
 
 # Install NodeJS
 echo "Installing NodeJS"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc
+. ~/.nvm/nvm.sh
 nvm install --lts
 
-# Install docker
-echo "installing docker"
+# Install Docker
+echo "Installing Docker"
 sudo apt-get update
-sudo apt-get install docker.io
+sudo apt-get install -y docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
-sudo apt install docker-compose
+sudo apt install -y docker-compose
 
 # Clone website code
 echo "Cloning website"
@@ -24,7 +24,11 @@ git clone https://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@github.com/tfilonych/
 cd healthy-plate
 git checkout docker-init
 
+# Forward port 80 traffic to port 3009
+echo "Forwarding 80 -> 3009"
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3009
+
 # Pull docker-compose
-echo "Pull docker-compose and run"
+echo "Pulling docker-compose and running"
 sudo docker pull tfilonych/healthy-plate:dev
 sudo docker-compose up
