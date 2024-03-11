@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
-import AppSSR from 'client/src/AppSSR';
+import AppSSR from '../client/src/AppSSR';
 import { bootstrapCSS, bootstrapScripts } from '../bootstrappedFiles';
 
 const renderClient = (req, res) => {
