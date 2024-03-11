@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Form from '../components/ui/Form';
 import Input from '../components/ui/Input';
@@ -15,8 +15,13 @@ const LoginPage = () => {
     email: '',
     password: ''
   });
+  useEffect(() => {
+    console.log('render')
+  }, []);
+
 
   const submitHandler = async (e) => {
+    console.log('yey');
     e.preventDefault();
     try {
       await login(formData);

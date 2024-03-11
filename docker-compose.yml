@@ -1,0 +1,22 @@
+version: '2.24.6'
+
+services:
+  web:
+    image: 'tfilonych/healthy-plate:dev'
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
+    ports:
+      - "3009:3009"
+    volumes:
+      - ./client:/app/client
+      - ./config:/app/config
+      - ./images:/app/images
+      - ./render:/app/render
+      - ./server:/app/server
+      - ./bootstrap.js:/app/bootstrap.js
+      - ./bootstrappedFiles.js:/app/bootstrappedFiles.js
+      - ./index.js:/app/index.js
+    environment:
+      - NODE_ENV=development
+    command: [ "npm", "run", "dev", "--watch" ]

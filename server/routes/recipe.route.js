@@ -3,8 +3,39 @@ import Recipe from '../models/Recipe';
 import auth from '../middleware/auth.middleware';
 import multer from 'multer';
 import dbConnect from './../db';
+import { S3 } from '@aws-sdk/client-s3';
+import fs from 'fs';
+// import { Upload } = require("@aws-sdk/lib-storage");
+const accessKeyId = 'AKIATCKATCWDBQ65FTQF';
+const secretAccessKey = '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';
+const region = 'eu-central-1';
 
+const s3 = new S3({
+  accessKeyId,
+  secretAccessKey,
+  region
+});
+
+// let AWS_BUCKET_NAME, AWS_BUCKET_REGION;
+// eslint-disable-next-line no-unused-vars
+const AWS_BUCKET_NAME = 'healthy-plate';
+// eslint-disable-next-line no-unused-vars
+const AWS_BUCKET_REGION = 'eu-central-1';
+// const ACCESS_KEY = 'AKIATCKATCWDBQ65FTQF';
+// const SECRET_ACCESS_KEY = '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';
 const router = Router();
+const uploadFileToS3 = (file) => {
+  const fileStream = fs.createReadStream(file.path);
+
+  const uploadParams = {
+    Bucket: AWS_BUCKET_NAME,
+    Body: fileStream,
+    Key: file.filename
+  };
+
+  return s3.upload(uploadParams).promise();
+};
+
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
@@ -36,11 +67,13 @@ router.post(
   async (req, res) => {
     try {
       await dbConnect();
-      const {title, ingredients, procedures} = req.body;
-      const existing = await Recipe.findOne({title});
+      const { title, ingredients, procedures } = req.body;
+      const existing = await Recipe.findOne({ title });
+
+      await uploadFileToS3(req.file);
 
       if (existing) {
-        return res.json({recipe: existing});
+        return res.json({ recipe: existing });
       }
 
       const recipe = new Recipe({
@@ -54,11 +87,11 @@ router.post(
 
       await recipe.save();
 
-      res.status(201).json({recipe});
+      res.status(201).json({ recipe });
     } catch (e) {
-      res.status(500).json({message: e.message});
+      res.status(500).json({ message: e.message });
     }
-  })
+  });
 
 router.get(
   '/all',
@@ -69,18 +102,18 @@ router.get(
 
       res.json(recipes);
     } catch (e) {
-      res.status(500).json({message: 'Something went wrong. Please, try again !!!!'});
+      res.status(500).json({ message: 'Something went wrong. Please, try again !!!!' });
     }
-  })
+  });
 router.get(
   '/:id',
   async (req, res) => {
     try {
       await dbConnect();
-      const recipe = await Recipe.findById({_id: req.params.id});
+      const recipe = await Recipe.findById({ _id: req.params.id });
       res.json(recipe);
     } catch (e) {
-      res.status(500).json({message: 'Something went wrong. Please, try again !!!!'});
+      res.status(500).json({ message: 'Something went wrong. Please, try again !!!!' });
     }
   });
 
