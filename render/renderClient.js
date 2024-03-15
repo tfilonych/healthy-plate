@@ -2,7 +2,7 @@ import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import AppSSR from '../client/src/AppSSR';
-import { bootstrapCSS } from '../bootstrappedFiles';
+import { bootstrapCSS, bootstrapScripts } from '../bootstrappedFiles';
 
 const renderClient = (req, res) => {
   let didError = false;
@@ -11,7 +11,7 @@ const renderClient = (req, res) => {
       <AppSSR bootStrapCSS={bootstrapCSS} />
     </StaticRouter>,
     {
-      // bootstrapScripts,
+      bootstrapScripts,
       onShellReady: () => {
         res.statusCode = didError ? 500 : 200;
         res.setHeader('Content-type', 'text/html');

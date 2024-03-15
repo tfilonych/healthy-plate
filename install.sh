@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# Enable logs
-exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
-
 # Install NodeJS
 echo "Installing NodeJS"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc
+. ~/.nvm/nvm.sh
 nvm install --lts
 
 # Install docker
