@@ -2,8 +2,7 @@ import axios from 'axios';
 import conf from './config/config';
 
 const $api = axios.create({
-  withCredentials: true,
-  baseURL: (typeof window !== 'undefined') ? location.host : conf.BASE_URL
+  withCredentials: true
 });
 
 $api.interceptors.request.use((config) => {
