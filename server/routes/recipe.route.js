@@ -3,37 +3,57 @@ import Recipe from '../models/Recipe';
 import auth from '../middleware/auth.middleware';
 import multer from 'multer';
 import dbConnect from './../db';
-import { S3 } from '@aws-sdk/client-s3';
-import fs from 'fs';
+import { S3Client } from '@aws-sdk/client-s3';
+import { Readable } from 'stream';
+import { Upload } from '@aws-sdk/lib-storage';
+//import fs from 'fs';
 // import { Upload } = require("@aws-sdk/lib-storage");
 const accessKeyId = 'AKIATCKATCWDBQ65FTQF';
 const secretAccessKey = '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';
 const region = 'eu-central-1';
-
-const s3 = new S3({
-  accessKeyId,
-  secretAccessKey,
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId,
+    secretAccessKey
+  },
   region
 });
-
-// let AWS_BUCKET_NAME, AWS_BUCKET_REGION;
-// eslint-disable-next-line no-unused-vars
 const AWS_BUCKET_NAME = 'healthy-plate';
-// eslint-disable-next-line no-unused-vars
-const AWS_BUCKET_REGION = 'eu-central-1';
-// const ACCESS_KEY = 'AKIATCKATCWDBQ65FTQF';
-// const SECRET_ACCESS_KEY = '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';
 const router = Router();
-const uploadFileToS3 = (file) => {
-  const fileStream = fs.createReadStream(file.path);
+const uploadFileToS3 = async (file) => {
+  const fileStream = new Readable({
+    read() {
+      this.push(file.data);
+      this.push(null); // Signal the end of the stream
+    }
+  });
+  const upload = new Upload({
+    client: s3,
+    params: {
+      Bucket: AWS_BUCKET_NAME,
+      Key: file.filename,
+      Body: fileStream
+    }
+  });
 
-  const uploadParams = {
-    Bucket: AWS_BUCKET_NAME,
-    Body: fileStream,
-    Key: file.filename
-  };
 
-  return s3.upload(uploadParams).promise();
+  // const uploadParams = {
+  //   Bucket: AWS_BUCKET_NAME,
+  //   Body: fileStream,
+  //   Key: file.filename
+  // };
+
+  try {
+    // Execute the upload operation
+    const result = await upload.done();
+    console.log('File uploaded successfully:', result);
+    return result;
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    throw error;
+  }
+
+  //return s3.upload(uploadParams).promise();
 };
 
 const upload = multer({
