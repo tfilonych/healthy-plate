@@ -21,14 +21,13 @@ const s3 = new S3Client({
 });
 const AWS_BUCKET_NAME = 'healthy-plate';
 const router = Router();
-const uploadFileToS3 = async (files) => {
-  const params = files.map((file) => {
-    return {
-      Bucket: AWS_BUCKET_NAME,
-      Key: `uploads/${uuid()}-${file.originalname}`,
-      Body: file.buffer
-    };
-  });
+const uploadFileToS3 = async (file) => {
+  const params = {
+    Bucket: AWS_BUCKET_NAME,
+    Key: `uploads/${uuid()}-${file.originalname}`,
+    Body: file.buffer
+  };
+
   // const fileStream = new Readable({
   //   read() {
   //     this.push(file.data);
@@ -50,10 +49,9 @@ const uploadFileToS3 = async (files) => {
   //   Body: fileStream,
   //   Key: file.filename
   // };
+  const res = await s3.send(new PutObjectCommand(params));
 
-  return await Promise.all(
-    params.map((param) => s3.send(new PutObjectCommand(param)))
-  );
+  return res;
 
   // try {
   //   // Execute the upload operation
