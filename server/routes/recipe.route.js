@@ -3,15 +3,17 @@ import Recipe from '../models/Recipe';
 import auth from '../middleware/auth.middleware';
 import multer from 'multer';
 import dbConnect from './../db';
+
+import fs from 'fs';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-// import { Readable } from 'stream';
-// import { Upload } from '@aws-sdk/lib-storage';
-import uuid from 'uuid';
-//import fs from 'fs';
-// import { Upload } = require("@aws-sdk/lib-storage");
+
+const router = Router();
+
 const accessKeyId = 'AKIATCKATCWDBQ65FTQF';
 const secretAccessKey = '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';
+const AWS_BUCKET_NAME = 'healthy-plate';
 const region = 'eu-central-1';
+
 const s3 = new S3Client({
   credentials: {
     accessKeyId,
@@ -19,39 +21,37 @@ const s3 = new S3Client({
   },
   region
 });
-const AWS_BUCKET_NAME = 'healthy-plate';
-const router = Router();
 const uploadFileToS3 = async (file) => {
-  const params = {
-    Bucket: AWS_BUCKET_NAME,
-    Key: file.filename,
-    Body: file.buffer
-  };
+  try {
+    // Read the file data
+    const fileData = fs.readFileSync(file.path);
 
-  // const fileStream = new Readable({
-  //   read() {
-  //     this.push(file.data);
-  //     this.push(null); // Signal the end of the stream
-  //   }
-  // });
-  // const upload = new Upload({
-  //   client: s3,
-  //   params: {
-  //     Bucket: AWS_BUCKET_NAME,
-  //     Key: file.filename,
-  //     Body: fileStream
-  //   }
-  // });
+    // Prepare parameters for uploading to S3
+    const params = {
+      Bucket: AWS_BUCKET_NAME,
+      Key: file.filename,
+      Body: fileData // Use file data read from the file
+    };
 
+    // Upload file to S3
+    const res = await s3.send(new PutObjectCommand(params));
 
-  // const uploadParams = {
+    return res;
+  } catch (error) {
+    console.error('Error uploading file to S3:', error);
+    throw error;
+  }
+  //
+  //
+  // const params = {
   //   Bucket: AWS_BUCKET_NAME,
-  //   Body: fileStream,
-  //   Key: file.filename
+  //   Key: file.filename,
+  //   Body: file.buffer
   // };
-  const res = await s3.send(new PutObjectCommand(params));
+  //
+  // const res = await s3.send(new PutObjectCommand(params));
 
-  return res;
+  // return res;
 
   // try {
   //   // Execute the upload operation
