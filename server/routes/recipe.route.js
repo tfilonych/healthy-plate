@@ -24,7 +24,7 @@ const router = Router();
 const uploadFileToS3 = async (file) => {
   const params = {
     Bucket: AWS_BUCKET_NAME,
-    Key: `uploads/${uuid()}-${file.originalname}`,
+    Key: file.filename,
     Body: file.buffer
   };
 
