@@ -3,9 +3,10 @@ import Recipe from '../models/Recipe';
 import auth from '../middleware/auth.middleware';
 import multer from 'multer';
 import dbConnect from './../db';
-import { S3Client } from '@aws-sdk/client-s3';
-import { Readable } from 'stream';
-import { Upload } from '@aws-sdk/lib-storage';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+// import { Readable } from 'stream';
+// import { Upload } from '@aws-sdk/lib-storage';
+import uuid from 'uuid';
 //import fs from 'fs';
 // import { Upload } = require("@aws-sdk/lib-storage");
 const accessKeyId = 'AKIATCKATCWDBQ65FTQF';
@@ -20,21 +21,28 @@ const s3 = new S3Client({
 });
 const AWS_BUCKET_NAME = 'healthy-plate';
 const router = Router();
-const uploadFileToS3 = async (file) => {
-  const fileStream = new Readable({
-    read() {
-      this.push(file.data);
-      this.push(null); // Signal the end of the stream
-    }
-  });
-  const upload = new Upload({
-    client: s3,
-    params: {
+const uploadFileToS3 = async (files) => {
+  const params = files.map((file) => {
+    return {
       Bucket: AWS_BUCKET_NAME,
-      Key: file.filename,
-      Body: fileStream
-    }
+      Key: `uploads/${uuid()}-${file.originalname}`,
+      Body: file.buffer
+    };
   });
+  // const fileStream = new Readable({
+  //   read() {
+  //     this.push(file.data);
+  //     this.push(null); // Signal the end of the stream
+  //   }
+  // });
+  // const upload = new Upload({
+  //   client: s3,
+  //   params: {
+  //     Bucket: AWS_BUCKET_NAME,
+  //     Key: file.filename,
+  //     Body: fileStream
+  //   }
+  // });
 
 
   // const uploadParams = {
@@ -43,15 +51,19 @@ const uploadFileToS3 = async (file) => {
   //   Key: file.filename
   // };
 
-  try {
-    // Execute the upload operation
-    const result = await upload.done();
-    console.log('File uploaded successfully:', result);
-    return result;
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    throw error;
-  }
+  return await Promise.all(
+    params.map((param) => s3.send(new PutObjectCommand(param)))
+  );
+
+  // try {
+  //   // Execute the upload operation
+  //   const result = await upload.done();
+  //   console.log('File uploaded successfully:', result);
+  //   return result;
+  // } catch (error) {
+  //   console.error('Error uploading file:', error);
+  //   throw error;
+  // }
 
   //return s3.upload(uploadParams).promise();
 };
