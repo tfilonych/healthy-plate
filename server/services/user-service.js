@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 // import uuid from 'uuid';
 import UserModel from './../models/User';
 import UserDto from '../dtos/user-dto';
-// import mailService from '../services/mail-service';
+// import mailService from '../services/mail-service';   // temporary unavailable
 import tokenService from '../services/token-service';
 import dbConnect from '../db';
 
@@ -19,14 +19,12 @@ class UserService {
     // const activationLink = uuid.v4();
     // const user = new UserModel({ email, password: hashedPassword, activationLink });
     const user = new UserModel({ email, password: hashedPassword });
-
     // await mailService.sendActivationMail(email, `${ config.get('apiURL')}/api/auth/activate/${activationLink }`);
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
     await user.save();
-
     return { ...tokens, user: userDto };
   }
 
@@ -39,6 +37,7 @@ class UserService {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       throw new Error('Incorrect password');
     }
@@ -47,7 +46,6 @@ class UserService {
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
     return { ...tokens, user: userDto };
   }
 
@@ -60,7 +58,6 @@ class UserService {
     }
     user.isActivated = true;
     user.save();
-
   }
 
   async logout(refreshToken) {
@@ -81,8 +78,8 @@ class UserService {
     const user = await UserModel.findById(userData.id);
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
     return { user, ...tokens };
   }
 }

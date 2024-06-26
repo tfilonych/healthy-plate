@@ -5,7 +5,7 @@ import recipeRouter from './recipe.route';
 
 const router = new Router();
 router.use('/auth', authRouter);
-router.use('/link', linkRouter);
-router.use('/recipe', recipeRouter);
+router.use('/links', linkRouter);
+router.use('/recipes', recipeRouter);
 
 export default router;

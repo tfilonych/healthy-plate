@@ -50,6 +50,5 @@ describe('useAuth', () => {
   });
 
   // Add similar describe and test blocks for logout, checkAuth, and register
-  // ...
 
 });

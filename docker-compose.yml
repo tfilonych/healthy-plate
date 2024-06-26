@@ -11,7 +11,7 @@ services:
     volumes:
       - ./client:/app/client
       - ./config:/app/config
-      - ./images:/app/images
+      - ./imageStore:/app/imageStore
       - ./render:/app/render
       - ./server:/app/server
       - ./bootstrap.js:/app/bootstrap.js

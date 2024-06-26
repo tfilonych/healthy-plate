@@ -10,7 +10,7 @@ const HomePage = () => {
       <article>
         <section>
           <div className='image-container'>
-            <img src='/../public/images/home-second-section.webp' alt='' />
+            <img src='/images/home-second-section.webp' alt='' />
           </div>
           <div className='text-container'>
             <h2>What is Considered “Healthy Food”?</h2>
@@ -30,13 +30,13 @@ const HomePage = () => {
             </p>
           </div>
           <div className='image-container'>
-            <img src='/../public/images/home-third-section.jpeg' alt='' />
+            <img src='/images/home-third-section.jpeg' alt='' />
           </div>
         </section>
         <Divider />
         <section>
           <div className='image-container'>
-            <img src='/../public/images/home-fourth-section.jpg' alt='' />
+            <img src='/images/home-fourth-section.jpg' alt='' />
           </div>
           <div className='text-container'>
             <h2>Breaking the Cycle: Beyond Calorie Counting and Quick Fixes for True Health</h2>

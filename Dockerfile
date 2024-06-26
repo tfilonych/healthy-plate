@@ -10,20 +10,13 @@ RUN npm cache clean --force
 RUN npm install
 
 COPY ./client ./client
-COPY ./config ./config
-COPY ./images ./images
+COPY config ./config
+COPY imageStore ./images
 COPY ./render ./render
 COPY ./server ./server
 COPY ./bootstrap.js .
 COPY ./bootstrappedFiles.js .
 COPY ./index.js .
-COPY ./webpack.config.js .
 EXPOSE 3009
 
-#RUN sass ./client/src/styles/index.scss ./client/public/index.css
-
-# Compile SCSS to CSS
-#RUN npm run compile-sass
-# Copy the compiled CSS files to the ./client/ directory
-#RUN cp -r ./client/public/. ./client/
 CMD ["npm", "run", "dev"]

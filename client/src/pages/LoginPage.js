@@ -20,7 +20,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       await login(formData);
-      navigate('/recipes');
+      navigate('/recipes', { replace: true });
     } catch (e) {
       setServerError(e);
     }

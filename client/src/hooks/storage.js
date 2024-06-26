@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useStorage = (storageName) => {
   if (!storageName) return;
-  const [ storageVal, setStorageVal ] = useState(null);
+  const [storageVal, setStorageVal] = useState(null);
 
   const getStorageValue = () => {
     const val = localStorage.getItem(storageName);
@@ -16,13 +16,11 @@ const useStorage = (storageName) => {
       }
     }
     return null;
-  }
+  };
 
   useEffect(() => {
     setStorageVal(() => getStorageValue(storageName));
-
     window.addEventListener('storage', syncLocalStorage);
-
     return () => {
       window.removeEventListener('storage', syncLocalStorage);
     };
@@ -33,11 +31,11 @@ const useStorage = (storageName) => {
     localStorage.setItem(
       storageName,
       JSON.stringify(val));
-  }
+  };
 
   const clearStorage = () => {
     localStorage.removeItem(storageName);
-  }
+  };
 
   const syncLocalStorage = (e) => {
     if (e.key === storageName) {
@@ -49,7 +47,7 @@ const useStorage = (storageName) => {
     storageVal,
     updateStorage,
     clearStorage
-  }
-}
+  };
+};
 
 export default useStorage;

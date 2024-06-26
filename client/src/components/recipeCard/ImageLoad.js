@@ -14,11 +14,9 @@ const ImageLoad = ({ setForm, form }) => {
 
   const changeHandler = (e) => {
     const file = e.target.files[0];
-
-    setForm({ ...form, file: file });
-
     const reader = new FileReader();
 
+    setForm({ ...form, file: file });
     reader.readAsDataURL(file);
     reader.onload = ev => {
       const src = ev.target.result;
@@ -31,7 +29,6 @@ const ImageLoad = ({ setForm, form }) => {
   };
 
   return (
-    // <div className="image-container" >
     <>
       <input type='file' onChange={changeHandler} ref={ref} />
       <div className='add-img-btn' onClick={triggerInput}>Add Image</div>
@@ -43,7 +40,6 @@ const ImageLoad = ({ setForm, form }) => {
         </div>
       </div>}
     </>
-    // </div>
   );
 };
 

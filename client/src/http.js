@@ -1,5 +1,5 @@
 import axios from 'axios';
-import conf from './config/config';
+import conf from './config';
 
 const $api = axios.create({
   withCredentials: true

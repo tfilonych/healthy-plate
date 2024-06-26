@@ -22,11 +22,11 @@ const CreateRecipePage = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleAdd = (ingredient) => {
-    setForm({ ...form, ingredients: form.ingredients.concat(ingredient) });
+  const addPropsToForm = (ingredient) => {
+    //setForm({ ...form, ingredients: form.ingredients.concat(ingredient) });
   };
 
-  function handleRemove(item) {
+  function removeHandler(item) {
     const newList = form.ingredients.filter((ingredient) => ingredient !== item);
 
     setForm({ ...form, ingredients: newList });
@@ -34,7 +34,7 @@ const CreateRecipePage = () => {
 
   const saveRecipe = async () => {
     try {
-      const response = await $api.post('/api/recipe/save', form, {
+      const response = await $api.post('/api/recipes', form, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -62,36 +62,20 @@ const CreateRecipePage = () => {
           <ImageLoad setForm={setForm} form={form} />
         </CardImage>
       </div>
-      <Ingredients
-        name='ingredients'
-        changeHandler={changeHandler}
-        handleAdd={handleAdd}
-        ingredients={form.ingredients}
-        handleRemove={handleRemove}
-      >
-        <div className='item'>
-          <div className='ingredient-input'>
-            <Input
-              placeholder='Add ingredient'
-              id='ingredients'
-              type='text'
-              name='ingredients'
-              value={form.ingredients}
-              // onKeyPress={onKeyPress}
-            />
-          </div>
-          <div className='add-new-btn' onClick={handleAdd}>Add</div>
+      <div className='item'>
+        <div className='ingredient-input'>
+          <Input
+            placeholder='Add ingredient'
+            id='ingredients'
+            type='text'
+            name='ingredients'
+            value=''
+            onKeyPress={addPropsToForm}
+          />
         </div>
-
-        {/*{form.ingredients.length > 0 && <div className='ingredient-list'>*/}
-        {/*  {form.ingredients.map((item, i) => (*/}
-        {/*    <div className='ingredient' key={i}>*/}
-        {/*      <div className='minus' onClick={() => handleRemove(item)} />*/}
-        {/*      <div>{item}</div>*/}
-        {/*    </div>*/}
-        {/*  ))}*/}
-        {/*</div>}*/}
-      </Ingredients>
+        <div className='add-new-btn' onClick={addPropsToForm}>Add</div>
+        <Ingredients ingredients={form.ingredients} />
+      </div>
       <Procedures
       >
         <TextArea

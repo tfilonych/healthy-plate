@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import SignUpPage from './pages/SignUpPage';
 import RecipesPage from './pages/RecipesPage';
@@ -10,7 +9,8 @@ import Layout from './pages/Layout';
 import LoginPage from './pages/LoginPage';
 import AuthContextProvider from './context/AuthContext';
 import NotFoundPage from './pages/NotFoundPage';
-import PrivateRoute from './pages/PrivateRoute';
+import HomePage from './pages/HomePage';
+// import PrivateRoute from './pages/PrivateRoute';
 
 const App = () => {
   return (
@@ -23,11 +23,12 @@ const App = () => {
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/recipes' element={<RecipesPage />} />
           <Route path='/recipes/:id' element={<RecipePage />} />
-          <Route path='/recipes/new' element={
-            <PrivateRoute>
-              <CreateRecipePage />
-            </PrivateRoute>
-          } />
+          <Route path='/recipes/new' element={<CreateRecipePage />} />
+          {/*<Route path='/recipes/new' element={*/}
+          {/*  <PrivateRoute>*/}
+          {/*    <CreateRecipePage />*/}
+          {/*  </PrivateRoute>*/}
+          {/*} />*/}
           <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>

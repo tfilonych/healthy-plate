@@ -1,30 +1,15 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import defaultImage from '../images/default-image.jpg';
 import fetchData from '../utils/fetchHandler';
 
-const memorize = (fn) => {
-  const cache = {};
-
-  return (input) => {
-    if (cache[input] !== undefined) {
-      console.log('Result is cached');
-      return cache[input];
-    }
-    const result = fn(input);
-    console.log(result);
-    cache[input] = result;
-    return result;
-  };
-};
-
+const defaultImagePath = '/images/default-image.jpg';
 let resource;
-
 const RecipeList = ({ query }) => {
   const controller = new AbortController();
   const signal = controller.signal;
+
   if (!resource) {
-    resource = fetchData('/api/recipe/all', {
+    resource = fetchData('/api/recipes', {
       signal: signal
     });
   }
@@ -35,10 +20,9 @@ const RecipeList = ({ query }) => {
       return recipe.title.toLowerCase().includes(query.toLowerCase());
     });
   };
-  const filteredRecipes = memorize(filterMap)(query);
+  const filteredRecipes = filterMap(query);
 
   useEffect(() => {
-
     return () => {
       resource = null;
       controller.abort();
@@ -47,7 +31,7 @@ const RecipeList = ({ query }) => {
   }, []);
 
   const handleImageError = (e) => {
-    e.target.src = defaultImage;
+    e.target.src = defaultImagePath;
   };
 
   return (
@@ -61,7 +45,7 @@ const RecipeList = ({ query }) => {
             </div>
             <div className='image-container fade-in-image'>
               <img
-                src={recipe.image ? recipe.image : defaultImage}
+                src={recipe.image ? recipe.image : defaultImagePath}
                 onError={handleImageError}
                 alt={recipe.title}
                 loading='lazy'

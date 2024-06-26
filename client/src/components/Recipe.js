@@ -13,7 +13,7 @@ let resource;
 const Recipe = () => {
   const { id } = useParams();
   if (!resource) {
-    resource = fetchData(`/api/recipe/${id}`);
+    resource = fetchData(`/api/recipes/${id}`);
   }
   const recipe = resource.read().data;
 
@@ -31,13 +31,6 @@ const Recipe = () => {
           <div className='author'>By Username</div>
           <div className='time-added'>{transformDate(recipe.date)}</div>
           <div className='time-cooking'>Total Time: 1 hour 15minutes</div>
-          <div className='rating'>
-            <img src='/../public/images/stars/icons8-star-48.png' />
-            <img src='/../public/images/stars/icons8-star-48.png' />
-            <img src='/../public/images/stars/icons8-star-48.png' />
-            <img src='/../public/images/stars/icons8-star-48.png' />
-            <img src='/../public/images/stars/icons8-star-48.png' />
-          </div>
         </Info>
         <CardImage>{recipe.image && <img src={recipe.image} />}</CardImage>
       </div>

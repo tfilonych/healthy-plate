@@ -2,8 +2,8 @@ import { merge } from 'webpack-merge';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-import common from './webpack.common.js';
-import paths from './paths';
+import common from './webpack.common.mjs';
+import paths from './paths.mjs';
 
 export default merge(common, {
   mode: 'production',
@@ -11,15 +11,15 @@ export default merge(common, {
   output: {
     path: paths.build,
     publicPath: '/',
-    filename: 'js/[name].[contenthash].bundle.js',
+    filename: 'js/[name].[contenthash].bundle.js'
   },
   plugins: [
     // Extracts CSS into separate files
     // Note: style-loader is for development, MiniCssExtractPlugin is for production
     new MiniCssExtractPlugin({
       filename: 'styles/[name].[contenthash].css',
-      chunkFilename: '[id].css',
-    }),
+      chunkFilename: '[id].css'
+    })
   ],
   module: {
     rules: [
@@ -31,13 +31,13 @@ export default merge(common, {
             loader: 'css-loader',
             options: {
               importLoaders: 2,
-              sourceMap: false,
-            },
+              sourceMap: false
+            }
           },
-          'sass-loader',
-        ],
-      },
-    ],
+          'sass-loader'
+        ]
+      }
+    ]
   },
   optimization: {
     minimize: true,
@@ -48,12 +48,12 @@ export default merge(common, {
     // since the chunks will only
     // change when actual code changes, not the webpack runtime.
     runtimeChunk: {
-      name: 'runtime',
-    },
+      name: 'runtime'
+    }
   },
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
-  },
+    maxAssetSize: 512000
+  }
 });

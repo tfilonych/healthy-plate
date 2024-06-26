@@ -3,17 +3,16 @@ import Recipe from '../models/Recipe';
 import auth from '../middleware/auth.middleware';
 import multer from 'multer';
 import dbConnect from './../db';
-
 import fs from 'fs';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 const router = Router();
-
 const accessKeyId = 'AKIATCKATCWDBQ65FTQF';
 const secretAccessKey = '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';
 const AWS_BUCKET_NAME = 'healthy-plate';
 const region = 'eu-central-1';
 
+// test for S3 'file save' functionality
 const s3 = new S3Client({
   credentials: {
     accessKeyId,
@@ -25,51 +24,24 @@ const uploadFileToS3 = async (file) => {
   try {
     // Read the file data
     const fileData = fs.readFileSync(file.path);
-
     // Prepare parameters for uploading to S3
     const params = {
       Bucket: AWS_BUCKET_NAME,
       Key: file.filename,
       Body: fileData // Use file data read from the file
     };
-
     // Upload file to S3
-    const res = await s3.send(new PutObjectCommand(params));
-
-    return res;
+    return await s3.send(new PutObjectCommand(params));
   } catch (error) {
     console.error('Error uploading file to S3:', error);
     throw error;
   }
-  //
-  //
-  // const params = {
-  //   Bucket: AWS_BUCKET_NAME,
-  //   Key: file.filename,
-  //   Body: file.buffer
-  // };
-  //
-  // const res = await s3.send(new PutObjectCommand(params));
-
-  // return res;
-
-  // try {
-  //   // Execute the upload operation
-  //   const result = await upload.done();
-  //   console.log('File uploaded successfully:', result);
-  //   return result;
-  // } catch (error) {
-  //   console.error('Error uploading file:', error);
-  //   throw error;
-  // }
-
-  //return s3.upload(uploadParams).promise();
 };
 
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
-      cb(null, './images');
+      cb(null, './imageStore');
     },
     filename(req, file, cb) {
       cb(null, `${new Date().getTime()}_${file.originalname}`);
@@ -91,7 +63,7 @@ const upload = multer({
 });
 
 router.post(
-  '/save',
+  '/',
   upload.single('file'),
   auth,
   async (req, res) => {
@@ -99,9 +71,6 @@ router.post(
       await dbConnect();
       const { title, ingredients, procedures } = req.body;
       const existing = await Recipe.findOne({ title });
-
-      console.log('file is ');
-      console.log(req.file);
       await uploadFileToS3(req.file);
 
       if (existing) {
@@ -118,7 +87,6 @@ router.post(
       });
 
       await recipe.save();
-
       res.status(201).json({ recipe });
     } catch (e) {
       res.status(500).json({ message: e.message });
@@ -126,7 +94,7 @@ router.post(
   });
 
 router.get(
-  '/all',
+  '/',
   async (req, res) => {
     await dbConnect();
     try {
