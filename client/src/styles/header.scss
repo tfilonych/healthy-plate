@@ -1,77 +1,51 @@
-.header {
-  @media screen and (max-width: 600px) {
-    background: $primary-color-dark;
-    height: 60px;
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-    transition: none;
-    margin-bottom: 2rem;
-    overflow: hidden;
-
-    .logo-sm {
-      background: $primary-color-light;
-      margin: 1rem auto;
-    }
-
-    .top-panel {
-      top: 1rem;
-      right: 1rem;
-      position: absolute;
-    }
-
-    &:before {
-      content: "";
-      border: 1px solid #191818;
-      width: 100%;
-      top: 6rem;
-      position: absolute;
-      left: 0;
-    }
-  }
-
+header {
   // will be moved
   .logo,
   .logo-sm {
     display: flex;
     justify-content: center;
     font-size: 1.6rem;
-    padding: 1.4rem;
     text-transform: capitalize;
-    position: relative;
-    font-family: fantasy;
+    font-family: $font-family-secondary;
     border-radius: 50%;
-    border: 0.07rem solid;
     width: fit-content;
-    margin: 2.1rem auto;
     pointer-events: auto;
 
     span {
       &:first-child {
         text-decoration: none;
         color: $brand-color;
-        font-family: cursive;
+        font-family: $font-family-primary;
       }
+
       &:last-child {
-        font-family: fantasy;
+        font-family: $font-family-secondary;
         font-weight: 900;
+        color: $primary-color-light
       }
     }
   }
+
   .logo-sm {
     display: none;
-    padding: 8px;
+    font-size: 2rem;
+    //padding: 8px;
   }
+
   @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+
     .logo {
       display: none;
     }
 
     .logo-sm {
       display: flex;
+      margin: 0 auto;
     }
+
   }
-  // end
+
 
 }

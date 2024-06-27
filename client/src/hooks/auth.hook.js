@@ -1,52 +1,69 @@
-import { useState, useCallback, useEffect } from 'react';
-import { storageName } from '../../config/config';
-import useToken from './token.hook';
+import { useEffect, useState } from 'react';
+import config from '../config';
 import useStorage from './storage';
+import $api from '../utils/http';
 
 const useAuth = () => {
-  const { updateStorage, clearStorage } = useStorage(storageName);
-  const {
-    token,
-    isTokenExpired,
-    getUpdatedToken,
-    removeToken
-  } = useToken();
-  const [ready, setReady] = useState(false);
+  const { clearStorage } = useStorage(config.storageName);
+  const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthStatus] = useState(false);
 
-  const login = (newToken=null) => {
-    if (newToken && newToken.accessToken) {
-      updateStorage(newToken);
-    }
-    setAuthStatus(true);
-  }
+  useEffect(() => {
+    const initializeAuth = async () => {
+      if (localStorage.getItem(config.storageName)) {
+        await checkAuth();
+      }
+    };
 
-  const logout = useCallback(async() => {
-    setAuthStatus(false);
-    clearStorage();
-    await removeToken()
+    initializeAuth();
   }, []);
 
-  const checkAuth = async () => {
-    if (token && token.accessToken) {
-      const isTokenExp = isTokenExpired();
+  const handleAuthentication = async (response, action) => {
+    localStorage.setItem(config.storageName, response.data.accessToken);
+    setAuthStatus(true);
+    setUser(response.data.user);
+    action && action();
+  };
 
-      if (isTokenExp) {
-        const updatedToken = await getUpdatedToken(token);
+  const handleApiError = (e) => {
+    throw e.response?.data?.message;
+  };
 
-        return updatedToken && updatedToken.accessToken && login(updatedToken);
-      }
-      login();
+  const login = async (user) => {
+    try {
+      const response = await $api.post('/api/auth/login', { ...user });
+      await handleAuthentication(response);
+    } catch (e) {
+      handleApiError(e);
     }
-  }
+  };
 
-  useEffect(() => {
-    checkAuth();
+  const logout = () => {
+    setAuthStatus(false);
+    clearStorage();
+  };
 
-    return () => setReady(true);
-  }, [login]);
+  const checkAuth = async () => {
+    try {
+      const response = await $api.get(
+        `/api/auth/refresh`,
+        { withCredentials: true }
+      );
+      await handleAuthentication(response);
+    } catch (e) {
+      handleApiError(e);
+    }
+  };
 
-  return { login, logout, isAuthenticated, ready };
+  const register = async (user) => {
+    try {
+      await $api.post('/api/auth/register', { ...user });
+    } catch (e) {
+      handleApiError(e);
+    }
+  };
+
+  return { login, logout, checkAuth, isAuthenticated, user, register };
 };
 
 export default useAuth;

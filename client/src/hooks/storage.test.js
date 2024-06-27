@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-
+/* eslint-disable */
 import { renderHook, act } from '@testing-library/react';
 import useStorage from './storage';
 const TEST_KEY = "JWT_TOKEN";

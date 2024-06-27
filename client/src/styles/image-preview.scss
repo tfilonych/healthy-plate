@@ -1,21 +1,24 @@
 .image-container {
   position: relative;
+
   input {
     display: none;
   }
+
   .add-img-btn {
     @extend %button;
     position: absolute;
     color: $primary-color-light;
     right: 0;
     margin: .5rem;
-    background: $primary-color-dark;
+    background: $brand-color-dark;
 
     &:hover {
       background: $hover-dark;
     }
   }
 }
+
 .preview-container {
   position: relative;
   max-width: 100%;
@@ -47,6 +50,7 @@
     transition: opacity .3s ease;
 
   }
+
   .preview-info {
     background: rgba(0, 0, 0, .3);
     width: 100%;
