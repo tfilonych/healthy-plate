@@ -1,0 +1,18 @@
+name: Healthy-Plate
+# This workflow represents a set of basic End-to-End tests
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+ build-and-deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
+    - name: Install and Build 
+      working-directory: ./server
+      run: |
+         - npm install

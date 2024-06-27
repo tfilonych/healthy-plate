@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer')
-const config = require('config');
+import nodemailer from 'nodemailer';
+import config from 'config';
 
 class MailService {
   constructor() {
@@ -11,7 +11,7 @@ class MailService {
         user: config.get('smtpUser'),
         pass: config.get('smtpUserPassword')
       }
-    })
+    });
   }
 
   async sendActivationMail(to, link) {
@@ -22,13 +22,13 @@ class MailService {
       text: '',
       html:
         `
-                    <div>
-                        <h1>Для активації перейдіть по лінці</h1>
-                        <a href="${link}">${link}</a>
-                    </div>
-                `
-    })
+          <div>
+            <h1>Для активації перейдіть по лінці</h1>
+            <a href="${link}">${link}</a>
+          </div>
+        `
+    });
   }
 }
 
-module.exports = new MailService()
+export default new MailService();

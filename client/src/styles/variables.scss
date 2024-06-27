@@ -1,13 +1,28 @@
-//@font-face {
-//  font-family: 'inter';
-//  src: url('../fonts/Inter-Medium.ttf') format('truetype'),
-//  font-weight: normal;
-//  font-style: normal;
-//}
+@font-face {
+  font-family: "Salsa";
+  src: url("./fonts/Salsa-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Kalam-Light";
+  src: url("./fonts/Kalam-Light.ttf");
+}
+
+@font-face {
+  font-family: "Kalam-Regular";
+  src: url("./fonts/Kalam-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Kalam-Bold";
+  src: url("./fonts/Kalam-Bold.ttf");
+}
+
 $primary-color-light: white;
 $primary-color-dark: black;
 $secondary-color: #e0e0e0;
 $brand-color: burlywood;
+$brand-color-dark: #36455a;
 $font-size: 14px;
 
 $border-radius: 0.28rem;
@@ -16,115 +31,6 @@ $hover-dark: #555;
 
 $form-padding: 0.71rem;
 
-//@font-face {
-//  font-family: "inter";
-//  src: url("/client/src/styles/fonts/Inter-Medium.ttf"),
-//    url("/client/src/styles/fonts/Inter-Medium.ttf") format("truetype");
-//  font-weight: normal;
-//  font-style: normal;
-//}
-* {
-  font-family: "Inter", sans-serif;
-  color: #424242;
-  /*font-size: 14px;*/
-  margin: 0;
-}
-
-html {
-  font-size: 14px;
-  background: #f3f5f5;
-}
-@media screen and (max-width: 600px) {
-  html {
-    font-size: 10px;
-  }
-}
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: $border-radius;
-}
-a {
-  text-decoration: none;
-  background: transparent;
-}
-.hp-content {
-  margin: 0 2rem;
-  max-width: $max-width;
-
-  @media screen and (min-width: 1201px) {
-    margin: 0 auto;
-  }
-}
-%button {
-  cursor: pointer;
-  font-size: 1.2rem;
-  border-radius: $border-radius;
-  padding: 0.7rem 1.07rem;
-  width: 7rem;
-  text-align: center;
-
-  &:active {
-    transform: scale(.95);
-    transition: all .5s ease;
-  }
-
-  @media screen and (max-width: 600px) {
-    padding: 0.8rem 0.8rem;
-    min-width: 4.5rem;
-  }
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: none;
-  -webkit-text-fill-color: black;
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-%sign {
-  display: inline-block;
-  width: 1rem;
-  height: 1rem;
-  background: linear-gradient(#000, #000), linear-gradient(#000, #000), transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-%plus {
-  @extend %sign;
-  background-size: 100% 2px,2px 100%;
-}
-%minus {
-  @extend %sign;
-  background-size: 100% 2px,2px 0;
-}
-
-input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 1.2rem;
-  background: transparent;
-
-  &::placeholder {
-    background: transparent;
-  }
-
-  &:-webkit-autofill {
-    background: transparent;
-  }
-}
-
-%error {
-  color: red;
-  font-size: .8rem;
-  padding: $form-padding;
-}
+$font-family-primary: "Kalam-Regular";
+$font-family-secondary: "Kalam-Light";
+$font-family-buttons: "Salsa";
