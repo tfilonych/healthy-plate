@@ -4,7 +4,7 @@
  */
 import { renderHook, act } from '@testing-library/react-hooks';
 import useAuth from './auth.hook.js';
-import $api from '../http';
+import $api from '../utils/http';
 
 jest.mock('../http', () => ({
   post: jest.fn(),

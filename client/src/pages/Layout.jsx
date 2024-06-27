@@ -1,20 +1,20 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import HeaderWrapper from '../components/header/HeaderWrapper';
+// import HeaderWrapper from '../components/header/HeaderWrapper';
 import Footer from '../components/Footer';
 import TopPanel from '../components/header/TopPanel';
 import Navbar from '../components/header/Navbar';
 
 const Layout = () => (
   <>
-    <HeaderWrapper>
+    <header>
       <TopPanel />
       <div className='navigation'>
         <div className='nav-icon' tabIndex='0'>
         </div>
         <Navbar />
       </div>
-    </HeaderWrapper>
+    </header>
     <main className='hp-content'>
       <Outlet />
     </main>

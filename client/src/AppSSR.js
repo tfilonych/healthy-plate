@@ -3,6 +3,8 @@ import App from './App';
 
 // eslint-disable-next-line react/prop-types
 const AppSSR = ({ bootStrapCSS }) => {
+  console.log('bootStrapCSS ');
+  console.log(bootStrapCSS);
   return (
     <html>
     <head>

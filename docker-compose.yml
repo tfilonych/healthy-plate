@@ -16,7 +16,7 @@ services:
       - ./server:/app/server
       - ./bootstrap.js:/app/bootstrap.js
       - ./bootstrappedFiles.js:/app/bootstrappedFiles.js
-      - ./index.js:/app/index.js
+      - ./index.jsx:/app/index.jsx
     environment:
       - NODE_ENV=development
     command: [ "npm", "run", "dev", "--watch" ]

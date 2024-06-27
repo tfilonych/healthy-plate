@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import config from '../config';
 import useStorage from './storage';
-import $api from '../http';
+import $api from '../utils/http';
 
 const useAuth = () => {
   const { clearStorage } = useStorage(config.storageName);

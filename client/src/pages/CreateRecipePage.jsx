@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Ingredients from '../components/recipeCard/Ingredients';
 import Procedures from '../components/recipeCard/Procedures';
 import ImageLoad from '../components/recipeCard/ImageLoad';
-import $api from '../http';
+import $api from '../utils/http';
 import TextArea from '../components/ui/TextArea';
 import Input from '../components/ui/Input';
 import Info from '../components/recipeCard/Info';
